@@ -6,11 +6,11 @@
         "node": "17.3.0"
     },
     "scripts": {
-        "install": "npm run install:server install:client",
+        "install": "npm run install:server && npm run install:client",
         "install:server": "(cd ./backend && npm install)",
         "install:client": "(cd ./web && npm install)",
         "start": "npm run start:dev",
-        "start:dev": "npm run start:server run start:client",
+        "start:dev": "npm run start:server && npm run start:client",
         "start:server": "(cd ./backend && npm run start)",
         "start:client": "(cd ./web && npm run start)",
         "build": "(cd ./web && npm run build)"
