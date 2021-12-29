@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "build")));
 
+const AuthAPI = require("./api/auth");
+app.use("/auth", AuthAPI);
+
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
