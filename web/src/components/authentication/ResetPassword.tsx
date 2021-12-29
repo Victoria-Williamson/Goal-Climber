@@ -49,7 +49,7 @@ export default function ResetPassword() {
     };
 
     fetch(
-      "https://goal-climb.herokuapp.com/auth/emailReset/" + user.email,
+      "hhttps://goal-climber.herokuapp.com/auth/emailReset/" + user.email,
       requestOptions
     )
       .then((response) => response.text())
