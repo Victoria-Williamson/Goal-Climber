@@ -17,9 +17,9 @@ app.use(express.static(path.join(__dirname, "build")));
 const AuthAPI = require("./api/auth");
 app.use("/auth", AuthAPI);
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 mongoUtil.connect(() => {
   app.listen(PORT, () => console.log("Server listening on port " + PORT));
 });
