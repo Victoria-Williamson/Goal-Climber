@@ -12,8 +12,8 @@
         "start": "npm run start:dev",
         "start:dev": "npm run start:client & npm run start:server",
         "start:server": "(cd ./backend && npm run start)",
-        "start:client": "(cd ./web && npm run start",
-        "build:client": "(cd ./web && npm run build",
+        "start:client": "(cd ./web && npm run start)",
+        "build:client": "(cd ./web && npm run build)",
         "build": "(npm run build:client)"
     },
     "dependencies": {
