@@ -12,6 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const AuthAPI = require("./api/auth");
+app.use("/auth", AuthAPI);
+
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static(path.join(__dirname, "..", "web", "build")));
