@@ -6,15 +6,13 @@
         "node": "17.3.0"
     },
     "scripts": {
-        "install": "npm run install:client && npm run install:server",
+        "install": "npm run install:server",
         "install:server": "(cd ./backend && npm install)",
         "install:client": "(cd ./web && npm install)",
         "start": "npm run start:dev",
-        "start:dev": "npm run start:client & npm run start:server",
+        "start:dev": "npm run start:server",
         "start:server": "(cd ./backend && npm run start)",
-        "start:client": "(cd ./web && npm run start)",
-        "build:client": "(cd ./web && npm run build)",
-        "build": "(npm run build:client)"
+        "start:client": "(cd ./web && npm run start)"
     },
     "dependencies": {
         "concurrently": "^6.5.1"
