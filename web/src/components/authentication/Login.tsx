@@ -57,7 +57,7 @@ export default function Login() {
       body: raw,
     };
 
-    fetch("hhttps://goal-climber.herokuapp.com/auth/login", requestOptions)
+    fetch("https://goal-climber.herokuapp.com/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
