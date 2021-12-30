@@ -16,6 +16,9 @@ app.get("/", (req, res) => {
   res.send("Project Home");
 });
 
+const AuthAPI = require("./api/auth");
+app.use("/auth", AuthAPI);
+
 mongoUtil.connect(() => {
   app.listen(PORT, () => console.log("Server listening on port " + PORT));
 });
