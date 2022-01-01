@@ -149,7 +149,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-7xl text-white flex items-center justify-center">
+        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-5xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -161,7 +161,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-7xl text-white flex items-center justify-center">
+      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-5xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -240,7 +240,7 @@ export default function ViewTimer() {
         "h-screen w-full flex items-center justify-center flex-col"
       )}
     >
-      <div className="px-12 w-5/6 h-max rounded-md flex py-8justify-center items-center flex-col gap-2  bg-emerald-500">
+      <div className="px-12 w-5/6 h-max rounded-md flex py-8justify-center items-center flex-col gap-2  max-w-md bg-emerald-500">
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
