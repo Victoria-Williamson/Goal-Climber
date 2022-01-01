@@ -55,7 +55,7 @@ export default function ViewTimer() {
   );
 
   useEffect(() => {
-    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
+    fetch("http://localhost:5500/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
@@ -75,8 +75,9 @@ export default function ViewTimer() {
       if (timer.timers[timerIndex + index].type === "work") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
-            <div className="bg-emerald-900 l col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div className="bg-emerald-900 l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
+              <div>mins</div>
             </div>
             <div className="bg-white w-full col-span-4  flex items-center justify-center font-bold text-gray-700 rounded-tr-md rounded-br-md  text-xl">
               {" "}
@@ -87,8 +88,9 @@ export default function ViewTimer() {
       } else if (timer.timers[timerIndex + index].type === "long") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
-            <div className="bg-emerald-700 l col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div className="bg-emerald-700 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
+              <div>mins</div>
             </div>
             <div className="bg-white w-full col-span-4 flex items-center justify-center font-bold text-gray-700 rounded-tr-md rounded-br-md  text-xl">
               {" "}
@@ -99,8 +101,9 @@ export default function ViewTimer() {
       } else if (timer.timers[timerIndex + index].type === "short") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
-            <div className="bg-emerald-400 l col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div className="bg-emerald-400 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
+              <div>mins</div>
             </div>
             <div className="bg-white w-full col-span-4 flex items-center justify-center font-bold text-gray-700 rounded-tr-md rounded-br-md  text-xl">
               {" "}
@@ -138,7 +141,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full h-48 mx-12 lowbackground rounded-md font-black  text-8xl text-white flex items-center justify-center">
+        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-6xl md:text-8xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -150,7 +153,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-full h-48 mx-12 lowbackground rounded-md font-black  text-8xl text-white flex items-center justify-center">
+      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-centertext-6xl md:text-8xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -165,7 +168,7 @@ export default function ViewTimer() {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-14 w-14 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
@@ -179,7 +182,7 @@ export default function ViewTimer() {
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-14 w-14 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
@@ -194,7 +197,7 @@ export default function ViewTimer() {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white h-14 w-14 p-4 flex items-center justify-center"
+          className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
@@ -206,7 +209,7 @@ export default function ViewTimer() {
     }
     return (
       <button
-        className="rounded-full bg-white h-14 w-14 p-4 flex items-center justify-center"
+        className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
@@ -229,17 +232,17 @@ export default function ViewTimer() {
         "h-screen w-full flex items-center justify-center flex-col"
       )}
     >
-      <div className="px-12 w-max h-max rounded-md flex py-8 max-w-lg justify-center items-center flex-col gap-2  bg-emerald-500">
-        <div className=" font-black text-5xl text-white w-screen text-center mt-10 mb-5">
+      <div className="px-12 w-5/6 h-max rounded-md flex py-8 max-w-lg justify-center items-center flex-col gap-2  bg-emerald-500">
+        <div className="font-black  text-4xl lg:text-5xl text-white w-screen text-center mt-10 mb-5">
           {timer.title}
         </div>
 
-        <div className="flex flex-row items-center justify-center gap-4">
+        <div className="flex flex-no-wrap flex-row items-center justify-center gap-4 text-lg  md:text-sm  text-center">
           <div
             className={classNames(
               timer.timers[timerIndex].type === "work"
                 ? "text-emerald-500 font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -248,8 +251,8 @@ export default function ViewTimer() {
           <div
             className={classNames(
               timer.timers[timerIndex].type === "short"
-                ? "text-emerald-500 font-black px-4  py-2  text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2 text-md mt-4 rounded-full border-4 border-white"
+                ? "text-emerald-500 font-black px-4 w-max py-2  text-md mt-4 rounded-full bg-white"
+                : "text-white font-black px-4  py-2 w-max text-md mt-4 rounded-full border-4 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -260,7 +263,7 @@ export default function ViewTimer() {
             className={classNames(
               timer.timers[timerIndex].type === "long"
                 ? "text-emerald-500 font-black px-4  py-2 text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2 text-md mt-4 rounded-full border-4 border-white"
+                : "text-white font-black px-4  py-2 text-md mt-4 rounded-full border-4 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -278,7 +281,7 @@ export default function ViewTimer() {
         </div>
         <div className="w-full  border-b-2 border-white" />
 
-        <div className="flex flex-col gap-4 items-center justify-center w-full p-8">
+        <div className="flex flex-col gap-4 items-center justify-center w-full md:p-8">
           {getSubTimer(1)}
           {getSubTimer(2)}
           {getSubTimer(3)}
