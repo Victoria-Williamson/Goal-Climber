@@ -12,13 +12,7 @@ import "./styles.css";
 import logo from "../../logos/Logo-white.svg";
 
 import { useParams } from "react-router-dom";
-import {
-  FaPlay,
-  FaStop,
-  FaFastForward,
-  FaPause,
-  FaForward,
-} from "react-icons/fa";
+import { FaPlay, FaPause, FaForward } from "react-icons/fa";
 import { RestartAlt } from "@mui/icons-material";
 
 interface propsI {
@@ -176,27 +170,27 @@ export default function ViewTimer() {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
               start(timer.timers[timerIndex].length * 60000);
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full w-full px-3" />
+            <FaPlay className="fill-emerald-500 h-full w-full" />
           </button>
         );
       }
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full  w-full px-3" />
+            <FaPlay className="fill-emerald-500 h-full  w-full " />
           </button>
         );
       }
@@ -205,25 +199,25 @@ export default function ViewTimer() {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white  h-20 w-20  mb-4 p-4 flex items-center justify-center"
+          className="rounded-full bg-white h-10 w-10  mb-1 p-3 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
           }}
         >
-          <FaForward className="fill-emerald-500 h-full  w-full px-3" />
+          <FaForward className="fill-emerald-500 h-full  w-full " />
         </button>
       );
     }
     return (
       <button
-        className="rounded-full bg-white  h-20 w-20 mb-4 p-4 flex items-center justify-center"
+        className="rounded-full bg-white  h-10 w-10 mb-1 p-3 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
         }}
       >
-        <FaPause className="fill-emerald-500 h-full  w-full px-3" />
+        <FaPause className="fill-emerald-500 h-full  w-full" />
       </button>
     );
   }
@@ -358,7 +352,7 @@ export default function ViewTimer() {
 
         <div className="w-full items-center justify-center flex gap-4 mt-5">
           <button
-            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black text-emerald-500"
             onClick={() => {
               reset();
               setshowStop(false);
@@ -369,7 +363,7 @@ export default function ViewTimer() {
           </button>
           <ToggleStopStart />
           <button
-            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black text-emerald-500"
             onClick={() => setOpen(true)}
           >
             <HiDotsHorizontal className="fill-emerald-500 h-full  w-full" />
