@@ -55,7 +55,7 @@ export default function ViewTimer() {
   );
 
   useEffect(() => {
-    fetch("http://localhost:5500/timer/" + params.timerId)
+    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
