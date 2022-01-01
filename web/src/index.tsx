@@ -8,6 +8,7 @@ import LoginPage from "./pages/Login";
 import SignUpPage from "./pages/SignUp";
 import ResetPage from "./pages/Reset";
 import CalendarPage from "./pages/Calendar";
+import TimerPage from "./pages/Timer";
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
@@ -16,6 +17,8 @@ ReactDOM.render(
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset" element={<ResetPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/timer" element={<TimerPage />} />
+        <Route path="/timer/view/:timerId" element={<TimerPage />} />
         <Route path="/" element={<CalendarPage />} />
       </Routes>
     </React.StrictMode>
