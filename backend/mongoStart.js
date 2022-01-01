@@ -1,5 +1,5 @@
 const mongoClient = require("mongodb").MongoClient;
-
+require("dotenv").config();
 var _db;
 
 function connect(callback) {
