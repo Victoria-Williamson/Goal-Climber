@@ -176,21 +176,21 @@ export default function ViewTimer() {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
               start(timer.timers[timerIndex].length * 60000);
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full w-full px-1" />
+            <FaPlay className="fill-emerald-500 h-full w-full px-3" />
           </button>
         );
       }
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
@@ -205,7 +205,7 @@ export default function ViewTimer() {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
+          className="rounded-full bg-white  h-20 w-20  mb-4 p-4 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
@@ -217,7 +217,7 @@ export default function ViewTimer() {
     }
     return (
       <button
-        className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
+        className="rounded-full bg-white  h-20 w-20 mb-4 p-4 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
@@ -317,7 +317,7 @@ export default function ViewTimer() {
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="font-black  text-4xl text-white w-screen text-center mt-10 mb-5">
+        <div className="font-black  text-4xl text-white w-screen text-center mt-10 ">
           {timer.title}
         </div>
 
@@ -358,7 +358,7 @@ export default function ViewTimer() {
 
         <div className="w-full items-center justify-center flex gap-4 mt-5">
           <button
-            className="rounded-full bg-white h-10 w-10 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
             onClick={() => {
               reset();
               setshowStop(false);
@@ -369,14 +369,14 @@ export default function ViewTimer() {
           </button>
           <ToggleStopStart />
           <button
-            className="rounded-full bg-white h-10 w-10 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
             onClick={() => setOpen(true)}
           >
             <HiDotsHorizontal className="fill-emerald-500 h-full  w-full" />
           </button>
         </div>
-        <div className="flex w-full h-12 items-center justify-end">
-          <img className=" h-10 w-10 fill-emerald-500" src={logo} />
+        <div className="flex w-full h-16 items-center justify-end">
+          <img className=" h-16 w-16 fill-emerald-500" src={logo} />
         </div>
       </div>
     </div>
