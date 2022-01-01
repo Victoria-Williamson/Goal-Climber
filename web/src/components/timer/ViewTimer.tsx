@@ -148,7 +148,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-8xl text-white flex items-center justify-center">
+        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-7xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -160,7 +160,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-center text-8xl text-white flex items-center justify-center">
+      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-7xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -316,11 +316,11 @@ export default function ViewTimer() {
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="font-black  text-6xl text-white w-screen text-center mt-10 mb-5">
+        <div className="font-black  text-4xl text-white w-screen text-center mt-10 mb-5">
           {timer.title}
         </div>
 
-        <div className="flex flex-no-wrap flex-row items-center justify-center gap-4 text-lg  md:text-sm  text-center">
+        <div className="flex flex-no-wrap flex-row items-center justify-center gap-4 text-xs  text-center">
           <div
             className={classNames(
               timer.timers[timerIndex].type === "work"
