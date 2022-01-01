@@ -1,10 +1,15 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Fragment } from "react";
 import { Timer, subTimer } from "../../interfaces/Timer";
 import Countdown from "react-countdown";
 import useCountDown from "react-countdown-hook";
 import FastForward from "./Fast Forward.svg";
+import { VscDebugRestart } from "react-icons/vsc";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
+import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
+
 import { useParams } from "react-router-dom";
 import {
   FaPlay,
@@ -13,6 +18,7 @@ import {
   FaPause,
   FaForward,
 } from "react-icons/fa";
+import { RestartAlt } from "@mui/icons-material";
 
 interface propsI {
   total: number;
@@ -45,6 +51,7 @@ export default function ViewTimer() {
   const [showStop, setshowStop] = useState(true);
   const [hasStarted, setHasStarted] = useState(false);
   const [timerIndex, setTimerIndex] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const initialTime = 60 * 1000; // initial time in milliseconds, defaults to 60000
   const interval = 1000; // interval to change remaining time amount, defaults to 1000
@@ -74,12 +81,12 @@ export default function ViewTimer() {
     if (timerIndex + index < timer.timers.length) {
       if (timer.timers[timerIndex + index].type === "work") {
         return (
-          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
+          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
             <div className="bg-emerald-900 l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
             </div>
-            <div className="bg-white w-full col-span-4  flex items-center justify-center font-bold text-gray-700 rounded-tr-md rounded-br-md  text-xl">
+            <div className="bg-gray-white w-full col-span-4  flex items-center justify-center font-bold text-gray-700 rounded-tr-md rounded-br-md  text-xl">
               {" "}
               {timer.timers[timerIndex + index].type}
             </div>
@@ -87,7 +94,7 @@ export default function ViewTimer() {
         );
       } else if (timer.timers[timerIndex + index].type === "long") {
         return (
-          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
+          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
             <div className="bg-emerald-700 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
@@ -100,7 +107,7 @@ export default function ViewTimer() {
         );
       } else if (timer.timers[timerIndex + index].type === "short") {
         return (
-          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16">
+          <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
             <div className="bg-emerald-400 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
@@ -141,7 +148,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-6xl md:text-8xl text-white flex items-center justify-center">
+        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-8xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -153,7 +160,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-centertext-6xl md:text-8xl text-white flex items-center justify-center">
+      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-5xl sm:text-center text-8xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -175,7 +182,7 @@ export default function ViewTimer() {
               start(timer.timers[timerIndex].length * 60000);
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full" />
+            <FaPlay className="fill-emerald-500 h-full w-full px-3" />
           </button>
         );
       }
@@ -188,7 +195,7 @@ export default function ViewTimer() {
               resume();
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full" />
+            <FaPlay className="fill-emerald-500 h-full  w-full px-3" />
           </button>
         );
       }
@@ -203,7 +210,7 @@ export default function ViewTimer() {
             start(timer.timers[timerIndex].length * 60000);
           }}
         >
-          <FaForward className="fill-emerald-500 h-full" />
+          <FaForward className="fill-emerald-500 h-full  w-full px-3" />
         </button>
       );
     }
@@ -215,7 +222,7 @@ export default function ViewTimer() {
           pause();
         }}
       >
-        <FaPause className="fill-emerald-500 h-full" />
+        <FaPause className="fill-emerald-500 h-full  w-full px-3" />
       </button>
     );
   }
@@ -232,8 +239,84 @@ export default function ViewTimer() {
         "h-screen w-full flex items-center justify-center flex-col"
       )}
     >
-      <div className="px-12 w-5/6 h-max rounded-md flex py-8 max-w-lg justify-center items-center flex-col gap-2  bg-emerald-500">
-        <div className="font-black  text-4xl lg:text-5xl text-white w-screen text-center mt-10 mb-5">
+      <div className="px-12 w-5/6 h-max rounded-md flex py-8justify-center items-center flex-col gap-2  bg-emerald-500">
+        <Transition.Root show={open} as={Fragment}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 overflow-hidden"
+            onClose={setOpen}
+          >
+            <div className="absolute inset-0 overflow-hidden">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-in-out duration-500"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in-out duration-500"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
+              <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500 sm:duration-700"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500 sm:duration-700"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <div className="relative w-screen max-w-md">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-500"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in-out duration-500"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
+                        <button
+                          type="button"
+                          className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          onClick={() => setOpen(false)}
+                        >
+                          <span className="sr-only">Close panel</span>
+                          <XIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </Transition.Child>
+                    <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
+                      <div className="px-4 sm:px-6">
+                        <Dialog.Title className="text-2xl flex items-center justify-center font-bold text-gray-800">
+                          Upcoming Timers
+                        </Dialog.Title>
+                      </div>
+                      <div className="mt-6 relative flex-1 px-4 sm:px-6">
+                        <div className="w-full  border-b-2 border-white" />
+
+                        <div className="flex flex-col gap-4 items-center justify-center w-full p-8">
+                          {getSubTimer(1)}
+                          {getSubTimer(2)}
+                          {getSubTimer(3)}
+                          {getUpcoming()}
+                        </div>
+                        <div className="absolute inset-0 px-4 sm:px-6">
+                          <div className="h-full" aria-hidden="true" />
+                        </div>
+                        {/* /End replace */}
+                      </div>
+                    </div>
+                  </div>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+        <div className="font-black  text-6xl text-white w-screen text-center mt-10 mb-5">
           {timer.title}
         </div>
 
@@ -272,20 +355,24 @@ export default function ViewTimer() {
         </div>
         <ToggleClock />
 
-        <div className="w-full items-center justify-center flex gap-5 mt-5">
+        <div className="w-full items-center justify-center flex gap-4 mt-5 mb-5">
+          <button
+            className="rounded-full bg-white h-16 w-16 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            onClick={() => {
+              reset();
+              setshowStop(false);
+              setHasStarted(false);
+            }}
+          >
+            <VscDebugRestart className="fill-emerald-500 h-full  w-full px-1" />
+          </button>
           <ToggleStopStart />
-        </div>
-
-        <div className="text-white flex items-start justify-start  w-full">
-          <div className="font-bold text-left text-2xl"> Upcoming Timers </div>
-        </div>
-        <div className="w-full  border-b-2 border-white" />
-
-        <div className="flex flex-col gap-4 items-center justify-center w-full md:p-8">
-          {getSubTimer(1)}
-          {getSubTimer(2)}
-          {getSubTimer(3)}
-          {getUpcoming()}
+          <button
+            className="rounded-full bg-white h-16 w-16 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            onClick={() => setOpen(true)}
+          >
+            <HiDotsHorizontal className="fill-emerald-500 h-full  w-full px-1" />
+          </button>
         </div>
       </div>
       <p> </p>
