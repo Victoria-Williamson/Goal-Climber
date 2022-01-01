@@ -9,6 +9,7 @@ import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
 import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
+import logo from "../../logos/Logo-white.svg";
 
 import { useParams } from "react-router-dom";
 import {
@@ -62,7 +63,7 @@ export default function ViewTimer() {
   );
 
   useEffect(() => {
-    fetch("http://localhost:5500/timer/" + params.timerId)
+    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
@@ -148,7 +149,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black text-7xl text-white flex items-center justify-center">
+        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-7xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -160,7 +161,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-full h-48 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-7xl text-white flex items-center justify-center">
+      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-7xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -175,21 +176,21 @@ export default function ViewTimer() {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
               start(timer.timers[timerIndex].length * 60000);
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full w-full px-3" />
+            <FaPlay className="fill-emerald-500 h-full w-full px-1" />
           </button>
         );
       }
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
@@ -204,7 +205,7 @@ export default function ViewTimer() {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+          className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
@@ -216,7 +217,7 @@ export default function ViewTimer() {
     }
     return (
       <button
-        className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+        className="rounded-full bg-white h-14 w-14  mb-4 p-4 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
@@ -355,27 +356,29 @@ export default function ViewTimer() {
         </div>
         <ToggleClock />
 
-        <div className="w-full items-center justify-center flex gap-4 mt-5 mb-5">
+        <div className="w-full items-center justify-center flex gap-4 mt-5">
           <button
-            className="rounded-full bg-white h-16 w-16 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-10 w-10 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
             onClick={() => {
               reset();
               setshowStop(false);
               setHasStarted(false);
             }}
           >
-            <VscDebugRestart className="fill-emerald-500 h-full  w-full px-1" />
+            <VscDebugRestart className="fill-emerald-500 h-full  w-full" />
           </button>
           <ToggleStopStart />
           <button
-            className="rounded-full bg-white h-16 w-16 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-10 w-10 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
             onClick={() => setOpen(true)}
           >
-            <HiDotsHorizontal className="fill-emerald-500 h-full  w-full px-1" />
+            <HiDotsHorizontal className="fill-emerald-500 h-full  w-full" />
           </button>
         </div>
+        <div className="flex w-full h-12 items-center justify-end">
+          <img className=" h-10 w-10 fill-emerald-500" src={logo} />
+        </div>
       </div>
-      <p> </p>
     </div>
   );
 }
