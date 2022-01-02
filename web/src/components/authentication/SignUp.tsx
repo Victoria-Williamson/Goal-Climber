@@ -94,7 +94,7 @@ export default function SignUp() {
       body: raw,
     };
 
-    fetch("https://goal-climber.herokuapp.com/auth/register", requestOptions)
+    fetch("https://api.goal-climber.com/auth/register", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);

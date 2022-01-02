@@ -189,7 +189,7 @@ export default function EditTimer() {
   }
 
   useEffect(() => {
-    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
+    fetch("https://api.goal-climber.com/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
@@ -226,7 +226,7 @@ export default function EditTimer() {
       headers: myHeaders,
       body: raw,
     };
-    fetch("https://goal-climber.herokuapp.com/timer/edit", requestOptions)
+    fetch("https://api.goal-climber.com/timer/edit", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
@@ -235,7 +235,7 @@ export default function EditTimer() {
         } else {
           setOpenNew(false);
           setNewSub(emptySub);
-          fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
+          fetch("https://api.goal-climber.com/timer/" + params.timerId)
             .then((response) => response.json())
             // 4. Setting *dogImage* to the image url that we received from the response above
             .then((data: Timer) => {
@@ -261,10 +261,7 @@ export default function EditTimer() {
       headers: myHeaders,
       body: raw,
     };
-    fetch(
-      "https://goal-climber.herokuapp.com/timer/addSubTimer",
-      requestOptions
-    )
+    fetch("https://api.goal-climber.com/timer/addSubTimer", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
@@ -273,7 +270,7 @@ export default function EditTimer() {
         } else {
           setOpenNew(false);
           setNewSub(emptySub);
-          fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
+          fetch("https://api.goal-climber.com/timer/" + params.timerId)
             .then((response) => response.json())
             // 4. Setting *dogImage* to the image url that we received from the response above
             .then((data: Timer) => {
@@ -582,7 +579,7 @@ export default function EditTimer() {
           <div className="max-w-lg w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
               {(
-                "https://goal-climb.pages.dev/timer/view/" + params.timerId
+                "https://goal-climber.com/timer/view/" + params.timerId
               ).replaceAll("-", "-\u2060")}
             </div>
             <button
@@ -592,9 +589,7 @@ export default function EditTimer() {
               )}
             >
               <CopyToClipboard
-                text={
-                  "https://goal-climb.pages.dev/timer/view/" + params.timerId
-                }
+                text={"https://goal-climber.com/timer/view/" + params.timerId}
               >
                 <FaLink className="fill-white" />
               </CopyToClipboard>
