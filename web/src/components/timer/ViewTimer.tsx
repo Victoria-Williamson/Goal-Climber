@@ -9,6 +9,7 @@ import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
 import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
+import useSound from "use-sound";
 import logo from "../../logos/Logo-white.svg";
 
 import { useParams } from "react-router-dom";
@@ -57,6 +58,10 @@ export default function ViewTimer(timer: Timer) {
     interval
   );
 
+  const [playActive] = useSound("./mixkit-warning-alarm-buzzer-991.wav", {
+    volume: 0.25,
+  });
+
   function getThemeColor900() {
     if (timer.color === "emerald") {
       return "bg-emerald-900";
@@ -68,8 +73,8 @@ export default function ViewTimer(timer: Timer) {
       return "bg-pink-900";
     } else if (timer.color === "yellow") {
       return "bg-yellow-900";
-    } else if (timer.color === "purple") {
-      return "bg-purple-900";
+    } else if (timer.color === "violet") {
+      return "bg-violet-900";
     } else if (timer.color === "red") {
       return "bg-red-900";
     } else if (timer.color === "white") {
@@ -92,8 +97,8 @@ export default function ViewTimer(timer: Timer) {
       return "bg-pink-700";
     } else if (timer.color === "yellow") {
       return "bg-yellow-700";
-    } else if (timer.color === "purple") {
-      return "bg-purple-700";
+    } else if (timer.color === "violet") {
+      return "bg-violet-700";
     } else if (timer.color === "red") {
       return "bg-red-700";
     } else if (timer.color === "white") {
@@ -116,8 +121,8 @@ export default function ViewTimer(timer: Timer) {
       return "bg-pink-400";
     } else if (timer.color === "yellow") {
       return "bg-yellow-400";
-    } else if (timer.color === "purple") {
-      return "bg-purple-400";
+    } else if (timer.color === "violet") {
+      return "bg-violet-400";
     } else if (timer.color === "red") {
       return "bg-red-400";
     } else if (timer.color === "white") {
@@ -139,8 +144,8 @@ export default function ViewTimer(timer: Timer) {
       return "bg-pink-500";
     } else if (timer.color === "yellow") {
       return "bg-yellow-500";
-    } else if (timer.color === "purple") {
-      return "bg-purple-500";
+    } else if (timer.color === "violet") {
+      return "bg-violet-500";
     } else if (timer.color === "red") {
       return "bg-red-500";
     } else if (timer.color === "white") {
@@ -163,8 +168,8 @@ export default function ViewTimer(timer: Timer) {
       return "text-pink-500";
     } else if (timer.color === "yellow") {
       return "text-yellow-500";
-    } else if (timer.color === "purple") {
-      return "text-purple-500";
+    } else if (timer.color === "violet") {
+      return "text-violet-500";
     } else if (timer.color === "red") {
       return "text-red-500";
     } else if (timer.color === "white") {
@@ -187,8 +192,8 @@ export default function ViewTimer(timer: Timer) {
       return "fill-pink-500";
     } else if (timer.color === "yellow") {
       return "fill-yellow-500";
-    } else if (timer.color === "purple") {
-      return "fill-purple-500";
+    } else if (timer.color === "violet") {
+      return "fill-violet-500";
     } else if (timer.color === "red") {
       return "fill-red-500";
     } else if (timer.color === "white") {
@@ -483,7 +488,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -491,12 +496,12 @@ export default function ViewTimer(timer: Timer) {
           </div>
           <div
             className={classNames(
-              timer.timers[timerIndex].type === "work"
+              timer.timers[timerIndex].type === "short"
                 ? classNames(
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -505,12 +510,12 @@ export default function ViewTimer(timer: Timer) {
 
           <div
             className={classNames(
-              timer.timers[timerIndex].type === "work"
+              timer.timers[timerIndex].type === "long"
                 ? classNames(
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -545,12 +550,12 @@ export default function ViewTimer(timer: Timer) {
             />
           </button>
         </div>
-        <div className="flex w-full h-16 items-center justify-end">
+        {/* <div className="flex w-full h-16 m-0 p-0items-center justify-end">
           <img
             className={classNames("h-16 w-16 ", getThemeColorFill())}
             src={logo}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
