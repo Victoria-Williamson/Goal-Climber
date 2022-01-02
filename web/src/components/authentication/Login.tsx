@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../../logos/Logo-with-Title.svg";
 import * as EmailValidator from "email-validator";
 import { inputError } from "../../interfaces/Auth";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
+interface User {
+  idToken: string;
+  localId: string;
+}
 export default function Login() {
   function classNames(...classes: Array<string>) {
     return classes.filter(Boolean).join(" ");
@@ -16,7 +20,18 @@ export default function Login() {
     validPassword: true,
   });
 
+  const [user, setUser] = useState(undefined);
   const [errorMsg, setError] = useState("");
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    // storing input name
+    var temp = window.localStorage.getItem("uid");
+
+    if (temp !== undefined && temp !== null) {
+      navigate("/dashboard");
+    }
+  }, [user]);
 
   function EmailError() {
     if (login.email !== "" && !EmailValidator.validate(login.email)) {
@@ -57,10 +72,11 @@ export default function Login() {
       body: raw,
     };
 
-    fetch("https://goal-climber.herokuapp.com/auth/login", requestOptions)
+    fetch("http://localhost:5500/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
+        console.log(resultObj);
         // Input Error
         if (resultObj.errors !== null && resultObj.errors !== undefined) {
           resultObj.errors.forEach((error: inputError) => {
@@ -80,7 +96,10 @@ export default function Login() {
         }
         // Login Sucessful
         else {
-          console.log("user found");
+          // setUser(resultObj);
+          window.localStorage.setItem("uid", resultObj.localId);
+          window.localStorage.setItem("token", resultObj.idToken);
+          navigate("/dashboard");
         }
       })
       .catch((error) => console.log("error", error));

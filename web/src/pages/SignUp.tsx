@@ -2,7 +2,19 @@ import SignUp from "../components/authentication/SignUp";
 import NavBar from "../components/general/NavBar";
 // import img from "./mountains-1412683.png";
 import img from "../logos/mountain.webp";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export default function SignUpPage() {
+  const nav = useNavigate();
+
+  useEffect(() => {
+    // storing input name
+    var temp = window.localStorage.getItem("uid");
+
+    if (temp !== undefined && temp !== null) {
+      nav("/dashboard");
+    }
+  }, []);
   return (
     <div>
       <div className="sticky top-0">
