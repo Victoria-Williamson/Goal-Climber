@@ -259,7 +259,10 @@ export default function EditTimer() {
       headers: myHeaders,
       body: raw,
     };
-    fetch("http://localhost:5500/timer/addSubTimer", requestOptions)
+    fetch(
+      "https://goal-climber.herokuapp.com/timer/addSubTimer",
+      requestOptions
+    )
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
