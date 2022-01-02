@@ -94,7 +94,7 @@ export default function SignUp() {
       body: raw,
     };
 
-    fetch("https://goal-climber.herokuapp.com/auth/register", requestOptions)
+    fetch("https://api.goal-climber.com/auth/register", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
@@ -124,11 +124,17 @@ export default function SignUp() {
 
     if (errorMsg !== "") {
       return (
-        <div className="text-red-700 text-md text-left"> Error: {msg} </div>
+        <div className="text-red-700 text-lg text-left mb-2">
+          {" "}
+          Error: {msg}{" "}
+        </div>
       );
     } else {
       return (
-        <div className="text-gray-500 text-md"> Sign Up to get started </div>
+        <div className="text-gray-500 text-lg mb-2">
+          {" "}
+          Sign Up to get started{" "}
+        </div>
       );
     }
   }

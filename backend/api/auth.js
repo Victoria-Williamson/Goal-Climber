@@ -40,7 +40,7 @@ router.post(
 
       const result = JSON.parse(response.body);
 
-      if (result.error !== null || result.error !== undefined) {
+      if (result.error !== null && result.error !== undefined) {
         res
           .status(result.error.code)
           .send(JSON.stringify({ message: result.error.message }));

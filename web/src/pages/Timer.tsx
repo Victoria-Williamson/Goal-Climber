@@ -22,7 +22,7 @@ export default function TimerPage() {
   const params = useParams();
 
   useEffect(() => {
-    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
+    fetch("https://api.goal-climber.com/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {

@@ -297,7 +297,7 @@ export default function ViewTimer(timer: Timer) {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-5xl text-white flex items-center justify-center">
+        <div className="mt-8 w-full md:px-2 px-4 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -309,7 +309,7 @@ export default function ViewTimer(timer: Timer) {
       );
     }
     return (
-      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-5xl text-white flex items-center justify-center">
+      <div className="mt-8 w-full md:px-2 px-4 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -397,7 +397,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "p-12 mx-4 my-8 w-5/6 h-max rounded-md flex justify-center items-center flex-col gap-2  max-w-md "
+          "md:p-12 p-6 mx-4 my-4 md:my-8 w-5/6 h-max rounded-md flex justify-center items-center flex-col gap-2  max-w-md "
         )}
       >
         <Transition.Root show={open} as={Fragment}>
@@ -476,7 +476,7 @@ export default function ViewTimer(timer: Timer) {
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="font-black  text-4xl text-white w-screen text-center mt-10 ">
+        <div className="font-black text-2xl sm:text-4xl text-white w-screen text-center mt-10 ">
           {timer.title}
         </div>
 

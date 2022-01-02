@@ -11,19 +11,23 @@ import CalendarPage from "./pages/Calendar";
 import TimerPage from "./pages/Timer";
 import EditTimerPage from "./pages/EditTimer";
 import NavBar from "../src/components/general/NavBar";
+import HomePage from "./pages/Home";
+import DashboardPage from "./pages/Dashboard";
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reset" element={<ResetPage />} />
+        <Route path="/dashboard" element={<CalendarPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/timer" element={<TimerPage />} />
         <Route path="/timer/view/:timerId" element={<TimerPage />} />
         <Route path="/timer/edit/:timerId" element={<EditTimerPage />} />
-        <Route path="/" element={<CalendarPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </React.StrictMode>
   </BrowserRouter>,
