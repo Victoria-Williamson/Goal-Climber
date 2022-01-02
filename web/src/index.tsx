@@ -11,6 +11,7 @@ import CalendarPage from "./pages/Calendar";
 import TimerPage from "./pages/Timer";
 import EditTimerPage from "./pages/EditTimer";
 import NavBar from "../src/components/general/NavBar";
+import HomePage from "./pages/Home";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -23,7 +24,7 @@ ReactDOM.render(
         <Route path="/timer" element={<TimerPage />} />
         <Route path="/timer/view/:timerId" element={<TimerPage />} />
         <Route path="/timer/edit/:timerId" element={<EditTimerPage />} />
-        <Route path="/" element={<CalendarPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </React.StrictMode>
   </BrowserRouter>,
