@@ -400,7 +400,7 @@ export default function EditTimer() {
         </Dialog>
       </Transition.Root>
       <div className="flex flex-col lg:flex-row w-full h-full  gap-4 items-center justify-center overflow-hidden ">
-        <div className="max-h-screen overflow-y-auto w-full min-h-screen bg-blueGray-100 pb-4 lg:w-1/3">
+        <div className="max-h-screen overflow-y-auto w-full lg:min-h-screen bg-blueGray-100 pb-4 lg:w-1/3">
           <div className=" w-full  h-full lg:mb-24 px-12  bg-blueGray-100 py-4  lg:overflow-y-scroll  flex items-center justify-center flex-col gap-2 ">
             <div className="w-full flex items-center justify-center lg:w-5/6   ">
               <div className="max-w-lg w-full  ">
