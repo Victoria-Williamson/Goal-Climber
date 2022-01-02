@@ -7,8 +7,10 @@ import title from "../../logos/Title.svg";
 import { FaUser } from "react-icons/fa";
 import { FiLogOut, FiLogIn } from "react-icons/fi";
 const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Widget", href: "#", current: false },
+  { name: "Home", href: "/", current: true },
+  { name: "Log In", href: "/login", current: false },
+  { name: "Sign Up", href: "/signup", current: false },
+  { name: "Reset Password", href: "/reset", current: false },
 ];
 
 function classNames(...classes: any) {
