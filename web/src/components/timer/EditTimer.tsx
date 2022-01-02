@@ -38,6 +38,7 @@ export default function EditTimer() {
   const params = useParams();
   const [newSub, setNewSub] = useState<subTimer>(emptySub);
   const [openNew, setOpenNew] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   var count = -1;
 
@@ -193,6 +194,7 @@ export default function EditTimer() {
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
         setTimer(data);
+        setIsLoaded(true);
       });
   }, []);
 
@@ -281,6 +283,15 @@ export default function EditTimer() {
       });
   }
   const cancelButtonRef = useRef(null);
+
+  if (!isLoaded) {
+    return (
+      <div className="h-full w-full items-center justify-center">
+        {" "}
+        Is Loading
+      </div>
+    );
+  }
   return (
     <>
       <Transition.Root show={openNew} as={Fragment}>
@@ -570,10 +581,9 @@ export default function EditTimer() {
           <label className="font-bold text-lg mt-2"> Embedd Link </label>
           <div className="max-w-lg w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
-              {("goal-climb.pages.dev/timer/view" + params.timerId).replaceAll(
-                "-",
-                "-\u2060"
-              )}
+              {(
+                "https://goal-climb.pages.dev/timer/view/" + params.timerId
+              ).replaceAll("-", "-\u2060")}
             </div>
             <button
               className={classNames(
@@ -582,7 +592,9 @@ export default function EditTimer() {
               )}
             >
               <CopyToClipboard
-                text={"goal-climb.pages.dev/timer/view" + params.timerId}
+                text={
+                  "https://goal-climb.pages.dev/timer/view/" + params.timerId
+                }
               >
                 <FaLink className="fill-white" />
               </CopyToClipboard>
