@@ -400,7 +400,7 @@ export default function EditTimer() {
         </Dialog>
       </Transition.Root>
       <div className="flex flex-col lg:flex-row w-full h-full  gap-4 items-center justify-center overflow-hidden ">
-        <div className="max-h-screen overflow-y-auto w-full bg-blueGray-100 pb-4 lg:w-1/3">
+        <div className="max-h-screen overflow-y-auto w-full min-h-screen bg-blueGray-100 pb-4 lg:w-1/3">
           <div className=" w-full  h-full lg:mb-24 px-12  bg-blueGray-100 py-4  lg:overflow-y-scroll  flex items-center justify-center flex-col gap-2 ">
             <div className="w-full flex items-center justify-center lg:w-5/6   ">
               <div className="max-w-lg w-full  ">
@@ -568,27 +568,25 @@ export default function EditTimer() {
             Save Changes
           </button>
           <label className="font-bold text-lg mt-2"> Embedd Link </label>
-          <div className="max-w-xl w-full grid grid-cols-6 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
+          <div className="max-w-xl w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
               {("goal-climb.pages.dev/timer/view" + params.timerId).replaceAll(
                 "-",
                 "-\u2060"
               )}
             </div>
-            <div
+            <button
               className={classNames(
                 getThemeColor400(),
-                "w-full flex items-center justify-center"
+                "w-full flex items-center col-span-1 justify-center"
               )}
             >
               <CopyToClipboard
                 text={"goal-climb.pages.dev/timer/view" + params.timerId}
               >
-                <button>
-                  <FaLink className="fill-white" />
-                </button>
+                <FaLink className="fill-white" />
               </CopyToClipboard>
-            </div>
+            </button>
           </div>
         </div>
       </div>
