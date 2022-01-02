@@ -92,6 +92,38 @@ router.put(
   }
 );
 
+// Add SubTimer
+{
+  router.put(
+    "/addSubTimer",
+    body("_id").isString(),
+    body("update").isObject(),
+    function (req, res) {
+      const newSub = {
+        type: req.body.update.type,
+        length: req.body.update.length,
+      };
+      db = mongoUtil.get();
+      db.db("project")
+        .collection("timers")
+        .updateOne(
+          { _id: ObjectId(req.body._id) },
+          {
+            $push: {
+              timers: newSub,
+            },
+          },
+          function (err, result) {
+            if (err) {
+              res.status(400).send(JSON.stringify({ error: err }));
+            } else {
+              res.status(200).send({ success: "timer added" });
+            }
+          }
+        );
+    }
+  );
+}
 // Delete Timer
 router.delete("/delete/:_id", function (req, res) {
   if (req.params._id === null || req.params._id === undefined) {

@@ -9,17 +9,13 @@ import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
 import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
+import useSound from "use-sound";
 import logo from "../../logos/Logo-white.svg";
 
 import { useParams } from "react-router-dom";
-import {
-  FaPlay,
-  FaStop,
-  FaFastForward,
-  FaPause,
-  FaForward,
-} from "react-icons/fa";
+import { FaPlay, FaPause, FaForward } from "react-icons/fa";
 import { RestartAlt } from "@mui/icons-material";
+import { theme } from "../../../tailwind.config";
 
 interface propsI {
   total: number;
@@ -46,9 +42,9 @@ const emptyTimer: Timer = {
     },
   ],
 };
-export default function ViewTimer() {
+export default function ViewTimer(timer: Timer) {
   const params = useParams();
-  const [timer, setTimer] = useState<Timer>(emptyTimer);
+
   const [showStop, setshowStop] = useState(true);
   const [hasStarted, setHasStarted] = useState(false);
   const [timerIndex, setTimerIndex] = useState(0);
@@ -62,15 +58,152 @@ export default function ViewTimer() {
     interval
   );
 
-  useEffect(() => {
-    fetch("https://goal-climber.herokuapp.com/timer/" + params.timerId)
-      .then((response) => response.json())
-      // 4. Setting *dogImage* to the image url that we received from the response above
-      .then((data: Timer) => {
-        setTimer(data);
-      });
-  }, []);
+  const [playActive] = useSound("./mixkit-warning-alarm-buzzer-991.wav", {
+    volume: 0.25,
+  });
 
+  function getThemeColor900() {
+    if (timer.color === "emerald") {
+      return "bg-emerald-900";
+    } else if (timer.color === "sky") {
+      return "bg-sky-900";
+    } else if (timer.color === "orange") {
+      return "bg-orange-900";
+    } else if (timer.color === "pink") {
+      return "bg-pink-900";
+    } else if (timer.color === "yellow") {
+      return "bg-yellow-900";
+    } else if (timer.color === "violet") {
+      return "bg-violet-900";
+    } else if (timer.color === "red") {
+      return "bg-red-900";
+    } else if (timer.color === "white") {
+      return "bg-white";
+    } else if (timer.color === "black") {
+      return "bg-gray-900";
+    }
+
+    return "bg-emerald-900";
+  }
+
+  function getThemeColor700() {
+    if (timer.color === "emerald") {
+      return "bg-emerald-700";
+    } else if (timer.color === "sky") {
+      return "bg-sky-700";
+    } else if (timer.color === "orange") {
+      return "bg-orange-700";
+    } else if (timer.color === "pink") {
+      return "bg-pink-700";
+    } else if (timer.color === "yellow") {
+      return "bg-yellow-700";
+    } else if (timer.color === "violet") {
+      return "bg-violet-700";
+    } else if (timer.color === "red") {
+      return "bg-red-700";
+    } else if (timer.color === "white") {
+      return "bg-white";
+    } else if (timer.color === "black") {
+      return "bg-gray-700";
+    }
+
+    return "bg-emerald-700";
+  }
+
+  function getThemeColor400() {
+    if (timer.color === "emerald") {
+      return "bg-emerald-400";
+    } else if (timer.color === "sky") {
+      return "bg-sky-400";
+    } else if (timer.color === "orange") {
+      return "bg-orange-400";
+    } else if (timer.color === "pink") {
+      return "bg-pink-400";
+    } else if (timer.color === "yellow") {
+      return "bg-yellow-400";
+    } else if (timer.color === "violet") {
+      return "bg-violet-400";
+    } else if (timer.color === "red") {
+      return "bg-red-400";
+    } else if (timer.color === "white") {
+      return "bg-white";
+    } else if (timer.color === "black") {
+      return "bg-gray-400";
+    }
+
+    return "bg-emerald-400";
+  }
+  function getThemeColorBackround() {
+    if (timer.color === "emerald") {
+      return "bg-emerald-500";
+    } else if (timer.color === "sky") {
+      return "bg-sky-500";
+    } else if (timer.color === "orange") {
+      return "bg-orange-500";
+    } else if (timer.color === "pink") {
+      return "bg-pink-500";
+    } else if (timer.color === "yellow") {
+      return "bg-yellow-500";
+    } else if (timer.color === "violet") {
+      return "bg-violet-500";
+    } else if (timer.color === "red") {
+      return "bg-red-500";
+    } else if (timer.color === "white") {
+      return "bg-white";
+    } else if (timer.color === "black") {
+      return "bg-black";
+    }
+
+    return "bg-emerald-500";
+  }
+
+  function getThemeColorText() {
+    if (timer.color === "emerald") {
+      return "text-emerald-500";
+    } else if (timer.color === "sky") {
+      return "text-sky-500";
+    } else if (timer.color === "orange") {
+      return "text-orange-500";
+    } else if (timer.color === "pink") {
+      return "text-pink-500";
+    } else if (timer.color === "yellow") {
+      return "text-yellow-500";
+    } else if (timer.color === "violet") {
+      return "text-violet-500";
+    } else if (timer.color === "red") {
+      return "text-red-500";
+    } else if (timer.color === "white") {
+      return "text-white";
+    } else if (timer.color === "black") {
+      return "text-black";
+    }
+
+    return "text-emerald-500";
+  }
+
+  function getThemeColorFill() {
+    if (timer.color === "emerald") {
+      return "fill-emerald-500";
+    } else if (timer.color === "sky") {
+      return "fill-sky-500";
+    } else if (timer.color === "orange") {
+      return "fill-orange-500";
+    } else if (timer.color === "pink") {
+      return "fill-pink-500";
+    } else if (timer.color === "yellow") {
+      return "fill-yellow-500";
+    } else if (timer.color === "violet") {
+      return "fill-violet-500";
+    } else if (timer.color === "red") {
+      return "fill-red-500";
+    } else if (timer.color === "white") {
+      return "fill-white-500";
+    } else if (timer.color === "black") {
+      return "fill-black-500";
+    }
+
+    return "fill-emerald-500";
+  }
   if (timeLeft === 0 && hasStarted) {
     const alarmSound = require("./mixkit-warning-alarm-buzzer-991.wav");
     const alarmAudio = new Audio(alarmSound.default);
@@ -83,7 +216,12 @@ export default function ViewTimer() {
       if (timer.timers[timerIndex + index].type === "work") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
-            <div className="bg-emerald-900 l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div
+              className={classNames(
+                getThemeColor900(),
+                " l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold "
+              )}
+            >
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
             </div>
@@ -96,7 +234,12 @@ export default function ViewTimer() {
       } else if (timer.timers[timerIndex + index].type === "long") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
-            <div className="bg-emerald-700 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div
+              className={classNames(
+                getThemeColor700(),
+                " l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold "
+              )}
+            >
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
             </div>
@@ -109,7 +252,12 @@ export default function ViewTimer() {
       } else if (timer.timers[timerIndex + index].type === "short") {
         return (
           <div className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md">
-            <div className="bg-emerald-400 flex-col col-span-2 rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold ">
+            <div
+              className={classNames(
+                getThemeColor400(),
+                " l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold "
+              )}
+            >
               {timer.timers[timerIndex + index].length}
               <div>mins</div>
             </div>
@@ -149,7 +297,7 @@ export default function ViewTimer() {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-7xl text-white flex items-center justify-center">
+        <div className="mt-8 w-5/6 px-4 h-36 mx-12 text-center lowbackground rounded-md font-black text-5xl text-white flex items-center justify-center">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -161,7 +309,7 @@ export default function ViewTimer() {
       );
     }
     return (
-      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-7xl text-white flex items-center justify-center">
+      <div className="mt-8 w-5/6 p-4 h-36 mx-12 text-center lowbackground rounded-md font-black sm:text-center text-5xl text-white flex items-center justify-center">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -176,27 +324,31 @@ export default function ViewTimer() {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
               start(timer.timers[timerIndex].length * 60000);
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full w-full px-3" />
+            <FaPlay
+              className={classNames("h-full w-full", getThemeColorFill())}
+            />
           </button>
         );
       }
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-20 w-20 mb-4 p-4 flex items-center justify-center"
+            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
             }}
           >
-            <FaPlay className="fill-emerald-500 h-full  w-full px-3" />
+            <FaPlay
+              className={classNames("h-full w-full", getThemeColorFill())}
+            />
           </button>
         );
       }
@@ -205,25 +357,27 @@ export default function ViewTimer() {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white  h-20 w-20  mb-4 p-4 flex items-center justify-center"
+          className="rounded-full bg-white h-10 w-10  mb-1 p-3 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
           }}
         >
-          <FaForward className="fill-emerald-500 h-full  w-full px-3" />
+          <FaForward
+            className={classNames("h-full w-full", getThemeColorFill())}
+          />
         </button>
       );
     }
     return (
       <button
-        className="rounded-full bg-white  h-20 w-20 mb-4 p-4 flex items-center justify-center"
+        className="rounded-full bg-white  h-10 w-10 mb-1 p-3 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
         }}
       >
-        <FaPause className="fill-emerald-500 h-full  w-full px-3" />
+        <FaPause className={classNames("h-full w-full", getThemeColorFill())} />
       </button>
     );
   }
@@ -237,10 +391,15 @@ export default function ViewTimer() {
     <div
       className={classNames(
         timer?.isDarkMode ? "bg-notionDark-100" : "bg-white",
-        "h-screen w-full flex items-center justify-center flex-col"
+        "h-full w-full flex items-center justify-center flex-col"
       )}
     >
-      <div className="px-12 w-5/6 h-max rounded-md flex py-8justify-center items-center flex-col gap-2  bg-emerald-500">
+      <div
+        className={classNames(
+          getThemeColorBackround(),
+          "p-12 mx-4 my-8 w-5/6 h-max rounded-md flex justify-center items-center flex-col gap-2  max-w-md "
+        )}
+      >
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
@@ -325,8 +484,11 @@ export default function ViewTimer() {
           <div
             className={classNames(
               timer.timers[timerIndex].type === "work"
-                ? "text-emerald-500 font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+                ? classNames(
+                    getThemeColorText(),
+                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                  )
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -335,8 +497,11 @@ export default function ViewTimer() {
           <div
             className={classNames(
               timer.timers[timerIndex].type === "short"
-                ? "text-emerald-500 font-black px-4 w-max py-2  text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2 w-max text-md mt-4 rounded-full border-4 border-white hidden sm:block"
+                ? classNames(
+                    getThemeColorText(),
+                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                  )
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -346,8 +511,11 @@ export default function ViewTimer() {
           <div
             className={classNames(
               timer.timers[timerIndex].type === "long"
-                ? "text-emerald-500 font-black px-4  py-2 text-md mt-4 rounded-full bg-white"
-                : "text-white font-black px-4  py-2 text-md mt-4 rounded-full border-4 border-white hidden sm:block"
+                ? classNames(
+                    getThemeColorText(),
+                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                  )
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
             )}
           >
             {" "}
@@ -358,26 +526,36 @@ export default function ViewTimer() {
 
         <div className="w-full items-center justify-center flex gap-4 mt-5">
           <button
-            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className={classNames(
+              getThemeColorText(),
+              " rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black"
+            )}
             onClick={() => {
               reset();
               setshowStop(false);
               setHasStarted(false);
             }}
           >
-            <VscDebugRestart className="fill-emerald-500 h-full  w-full" />
+            <VscDebugRestart
+              className={classNames(getThemeColorFill(), "h-full  w-full")}
+            />
           </button>
           <ToggleStopStart />
           <button
-            className="rounded-full bg-white h-14 w-14 mb-4 p-4 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black text-emerald-500"
             onClick={() => setOpen(true)}
           >
-            <HiDotsHorizontal className="fill-emerald-500 h-full  w-full" />
+            <HiDotsHorizontal
+              className={classNames(getThemeColorFill(), "h-full  w-full")}
+            />
           </button>
         </div>
-        <div className="flex w-full h-16 items-center justify-end">
-          <img className=" h-16 w-16 fill-emerald-500" src={logo} />
-        </div>
+        {/* <div className="flex w-full h-16 m-0 p-0items-center justify-end">
+          <img
+            className={classNames("h-16 w-16 ", getThemeColorFill())}
+            src={logo}
+          />
+        </div> */}
       </div>
     </div>
   );
