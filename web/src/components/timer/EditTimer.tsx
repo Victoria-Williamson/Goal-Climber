@@ -568,7 +568,7 @@ export default function EditTimer() {
             Save Changes
           </button>
           <label className="font-bold text-lg mt-2"> Embedd Link </label>
-          <div className="max-w-xl w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
+          <div className="max-w-lg w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
               {("goal-climb.pages.dev/timer/view" + params.timerId).replaceAll(
                 "-",
