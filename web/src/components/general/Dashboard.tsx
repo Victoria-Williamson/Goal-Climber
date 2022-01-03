@@ -14,7 +14,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const _id = localStorage.getItem("_id");
-    fetch(`http://localhost:5500/auth/get/widgets/${_id}`)
+    fetch(`https://api.goal-climer.com/auth/get/widgets/${_id}`)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => {

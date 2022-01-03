@@ -72,7 +72,7 @@ export default function Login() {
       body: raw,
     };
 
-    fetch("http://localhost:5500/auth/login", requestOptions)
+    fetch("https://api.goal-climber.com/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
