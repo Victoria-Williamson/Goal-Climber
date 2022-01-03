@@ -297,7 +297,7 @@ export default function ViewTimer(timer: Timer) {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full md:px-2 px-4 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center">
+        <div className="mt-8 w-full  px-12 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -309,7 +309,7 @@ export default function ViewTimer(timer: Timer) {
       );
     }
     return (
-      <div className="mt-8 w-full md:px-2 px-4 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center">
+      <div className="mt-8 w-full  px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -397,7 +397,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "md:p-12 p-6 mx-4 my-4 md:my-8 w-5/6 h-max rounded-md flex justify-center items-center flex-col gap-2  max-w-md "
+          "w-11/12 p-6 mx-4 my-2l rounded-md flex justify-center items-center flex-col gap-2 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>
@@ -476,7 +476,7 @@ export default function ViewTimer(timer: Timer) {
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="font-black text-2xl sm:text-4xl text-white w-screen text-center mt-10 ">
+        <div className="font-black largeTxt text-white w-screen text-center mt-10 ">
           {timer.title}
         </div>
 
@@ -486,9 +486,9 @@ export default function ViewTimer(timer: Timer) {
               timer.timers[timerIndex].type === "work"
                 ? classNames(
                     getThemeColorText(),
-                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white text-"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -501,7 +501,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -515,7 +515,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}

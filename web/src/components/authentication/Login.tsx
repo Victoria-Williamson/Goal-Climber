@@ -76,7 +76,7 @@ export default function Login() {
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
-        console.log(resultObj);
+
         // Input Error
         if (resultObj.errors !== null && resultObj.errors !== undefined) {
           resultObj.errors.forEach((error: inputError) => {
@@ -97,8 +97,9 @@ export default function Login() {
         // Login Sucessful
         else {
           // setUser(resultObj);
-          window.localStorage.setItem("uid", resultObj.localId);
-          window.localStorage.setItem("token", resultObj.idToken);
+          console.log(resultObj);
+          window.localStorage.setItem("uid", resultObj.id);
+          window.localStorage.setItem("_id", resultObj._id);
           navigate("/dashboard");
         }
       })

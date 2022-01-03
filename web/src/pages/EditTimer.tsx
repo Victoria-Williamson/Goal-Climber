@@ -23,7 +23,7 @@ export default function EditTimerPage() {
     }
   }, [user]);
   return (
-    <div className="w-screen h-full">
+    <div className="w-screen h-full lg:h-screen lg:overflow-hidden">
       <div className="sticky top-0">
         <NavBar />
       </div>

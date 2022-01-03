@@ -21,6 +21,9 @@ export default function TimerPage() {
   const [timer, setTimer] = useState<Timer>(emptyTimer);
   const params = useParams();
 
+  function classNames(...classes: Array<string>) {
+    return classes.filter(Boolean).join(" ");
+  }
   useEffect(() => {
     fetch("https://api.goal-climber.com/timer/" + params.timerId)
       .then((response) => response.json())
@@ -29,10 +32,16 @@ export default function TimerPage() {
         setTimer(data);
       });
   }, []);
+
   return (
-    <>
+    <div
+      className={classNames(
+        timer?.isDarkMode ? "bg-notionDark-100" : "bg-white",
+        "h-screen"
+      )}
+    >
       {" "}
       <ViewTimer {...timer} />
-    </>
+    </div>
   );
 }
