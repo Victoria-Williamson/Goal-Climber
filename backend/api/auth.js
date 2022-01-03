@@ -48,7 +48,6 @@ router.post(
         return;
       }
 
-      console.log(results);
       db = mongoUtil.get();
       db.db("project")
         .collection("users")

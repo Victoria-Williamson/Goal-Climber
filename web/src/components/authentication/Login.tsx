@@ -76,7 +76,7 @@ export default function Login() {
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
-        console.log(resultObj);
+
         // Input Error
         if (resultObj.errors !== null && resultObj.errors !== undefined) {
           resultObj.errors.forEach((error: inputError) => {

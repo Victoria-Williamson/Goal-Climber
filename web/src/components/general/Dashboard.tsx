@@ -19,7 +19,6 @@ export default function Dashboard() {
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => {
         setWidgets(data.widgets);
-        console.log(data.widgets, _id);
         setIsLoaded(true);
       });
   }, []);
