@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { FaCopy, FaLink, FaPlus } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import "./styles.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ExclamationIcon } from "@heroicons/react/outline";
 import {
@@ -804,9 +805,9 @@ export default function EditTimer() {
           </div>
         </div>
 
-        <div className="lg:w-2/3 w-full t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-5 ">
+        <div className="lg:w-2/3 w-full t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-3 ">
           <div className="text-xl font-bold text-gray-700">Widget Preview</div>
-          <div className="max-w-xl w-full h-full border-2 border-dashed rounded-lg outline-offset-8">
+          <div className="w-full  demoHeight max-w-lg  p-8 border-2 border-dashed rounded-lg outline-offset-8">
             <ViewTimer {...timer} />
           </div>
           <button

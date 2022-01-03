@@ -309,7 +309,7 @@ export default function ViewTimer(timer: Timer) {
       );
     }
     return (
-      <div className="mt-8 w-auto  px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+      <div className="mt-8 w-full  px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -397,7 +397,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "md:p-12 p-6 mx-4 my-2 md:my-8 w-full h-full rounded-md flex justify-center items-center flex-col gap-2  max-w-md max-h-96 "
+          "w-11/12 p-6 mx-4 my-2l rounded-md flex justify-center items-center flex-col gap-2 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>

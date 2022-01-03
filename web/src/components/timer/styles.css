@@ -3,5 +3,21 @@
 }
 
 .largeTxt {
-  font-size: min(calc(2vw + 2vh + 2vmin), 36px);
+  font-size: min(calc(2vw + 2vh + 3vmin), 36px);
+}
+
+.timerDiv {
+  width: 400px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .demoHeight {
+    height: min(60vh);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .demoHeight {
+    height: min(55vh);
+  }
 }
