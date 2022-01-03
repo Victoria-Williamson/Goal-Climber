@@ -477,7 +477,7 @@ export default function EditTimer() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div className="bg-gray-50 px-4 py-3  gap-2 flex items-center justify-center flex-col">
                   <button
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-600 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -487,7 +487,17 @@ export default function EditTimer() {
                   </button>
                   <button
                     type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => {
+                      deletesubTimer(editTimer);
+                      setOpenEdit(false);
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border-2 border-gray-300 text-gray-700 shadow-sm px-4 py-2  text-base font-medium hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => setOpenEdit(false)}
                     ref={cancelButtonRef}
                   >
@@ -700,7 +710,7 @@ export default function EditTimer() {
                             setOpenEdit(true);
                           }}
                           key={count}
-                          className="grid grid-cols-7 rounded-tl-lg hover:brightness-95 rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-6 rounded-tl-lg hover:brightness-95 rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -715,12 +725,6 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
-                          <button
-                            className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(subTimer)}
-                          >
-                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
-                          </button>
                         </div>
                       );
                     } else if (subTimer.type === "long") {
@@ -733,7 +737,7 @@ export default function EditTimer() {
                             setOpenEdit(true);
                           }}
                           key={count}
-                          className="grid grid-cols-7 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-6 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -748,12 +752,6 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
-                          <button
-                            className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(subTimer)}
-                          >
-                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
-                          </button>
                         </div>
                       );
                     } else {
@@ -766,7 +764,7 @@ export default function EditTimer() {
                             setOpenEdit(true);
                           }}
                           key={count}
-                          className="grid grid-cols-7 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-6 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -781,12 +779,6 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
-                          <button
-                            className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(subTimer)}
-                          >
-                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
-                          </button>
                         </div>
                       );
                     }
