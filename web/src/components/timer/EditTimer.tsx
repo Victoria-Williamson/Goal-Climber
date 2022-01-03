@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { FaCopy, FaLink, FaPlus } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ExclamationIcon } from "@heroicons/react/outline";
 import {
   DragDropContext,
@@ -34,11 +35,14 @@ const emptySub: subTimer = {
 
 export default function EditTimer() {
   const [timer, setTimer] = useState<Timer>(emptyTimer);
-  const [editTimer, setEditTimer] = useState<Timer>(emptyTimer);
+  const [editTimer, setEditTimer] = useState<subTimer>(emptySub);
   const params = useParams();
   const [newSub, setNewSub] = useState<subTimer>(emptySub);
+  const [editIndex, setEditIndex] = useState(0);
   const [openNew, setOpenNew] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const nav = useNavigate();
 
   var count = -1;
 
@@ -188,25 +192,19 @@ export default function EditTimer() {
     return "fill-emerald-500";
   }
 
+  const viewLink = "https://goal-climber.com/timer/view/" + params.timerId;
   useEffect(() => {
     fetch("https://api.goal-climber.com/timer/" + params.timerId)
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: Timer) => {
+        if (data.uid !== localStorage.getItem("_id")) {
+          nav("/login");
+        }
         setTimer(data);
         setIsLoaded(true);
       });
   }, []);
-
-  function removeSubTimer(index: number) {
-    var temp = [];
-    for (var i = 0; i < timer.timers.length; i++) {
-      if (i !== index) {
-        temp.push(timer.timers[i]);
-      }
-      timer.timers = temp;
-    }
-  }
 
   function saveSubTimer() {
     var myHeaders = new Headers();
@@ -279,6 +277,88 @@ export default function EditTimer() {
         }
       });
   }
+
+  function deletesubTimer(index: number) {
+    var tempTimers = [];
+
+    for (var i = 0; i < timer.timers.length; i++) {
+      if (i !== index) {
+        tempTimers.push(timer.timers[i]);
+      }
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      _id: timer._id,
+      update: {
+        timers: tempTimers,
+      },
+    });
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+    };
+    fetch("https://api.goal-climber.com/timer/edit", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        const resultObj = JSON.parse(result);
+        // Input Error
+        if (resultObj.errors !== null && resultObj.errors !== undefined) {
+        } else {
+          setOpenNew(false);
+          setNewSub(emptySub);
+          fetch("https://api.goal-climber.com/timer/" + params.timerId)
+            .then((response) => response.json())
+            // 4. Setting *dogImage* to the image url that we received from the response above
+            .then((data: Timer) => {
+              setTimer(data);
+            });
+        }
+      });
+  }
+
+  function editSubTimer() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const tempTimers = timer.timers.copyWithin(0, timer.timers.length);
+    tempTimers[editIndex] = editTimer;
+
+    var raw = JSON.stringify({
+      _id: timer._id,
+      update: {
+        timers: tempTimers,
+      },
+    });
+
+    setEditTimer(emptySub);
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+    };
+    fetch("https://api.goal-climber.com/timer/edit", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        const resultObj = JSON.parse(result);
+        // Input Error
+        if (resultObj.errors !== null && resultObj.errors !== undefined) {
+        } else {
+          setOpenNew(false);
+          setNewSub(emptySub);
+          fetch("https://api.goal-climber.com/timer/" + params.timerId)
+            .then((response) => response.json())
+            // 4. Setting *dogImage* to the image url that we received from the response above
+            .then((data: Timer) => {
+              setTimer(data);
+              setOpenEdit(false);
+            });
+        }
+      });
+  }
   const cancelButtonRef = useRef(null);
 
   if (!isLoaded) {
@@ -291,6 +371,123 @@ export default function EditTimer() {
   }
   return (
     <>
+      <Transition.Root show={openEdit} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed z-10 inset-0 overflow-y-auto"
+          onClose={setOpenEdit}
+        >
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <div className="inline-block align-bottom bg-white rounded-lg text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg--100 sm:mx-0 sm:h-10 sm:w-10 bg-violet-100">
+                      <AiFillEdit
+                        className="h-6 w-6 text--600 text-violet-600"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-xl leading-6 font-medium text-gray-900"
+                      >
+                        Edit Sub Timer
+                      </Dialog.Title>
+                      <div className="mt-2">
+                        <p className="text-lg text-gray-500">
+                          Edit a previously existing Sub Timer
+                        </p>
+                        <div className="w-full flex flex-col items-center mt-3 justify-center gap-2">
+                          <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                            <label> Type </label>
+                            <select
+                              value={editTimer.type}
+                              onChange={(e) => {
+                                setEditTimer({
+                                  ...editTimer,
+                                  type: e.target.value,
+                                });
+                              }}
+                              className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
+                            >
+                              <option value="work"> Work </option>
+                              <option value="long"> Long Break </option>
+                              <option value="short"> Short Break</option>
+                            </select>
+                          </div>
+                          <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                            <label> Length </label>
+                            <input
+                              placeholder="0"
+                              type={"number"}
+                              value={editTimer.length}
+                              min={0}
+                              onChange={(e) => {
+                                setEditTimer({
+                                  ...editTimer,
+                                  length: parseInt(e.target.value),
+                                });
+                              }}
+                              className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-600 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => editSubTimer()}
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => setOpenEdit(false)}
+                    ref={cancelButtonRef}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
       <Transition.Root show={openNew} as={Fragment}>
         <Dialog
           as="div"
@@ -329,21 +526,21 @@ export default function EditTimer() {
               <div className="inline-block align-bottom bg-white rounded-lg text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg--100 sm:mx-0 sm:h-10 sm:w-10">
+                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg--100 sm:mx-0 sm:h-10 sm:w-10 bg-violet-100">
                       <FaPlus
-                        className="h-6 w-6 text--600"
+                        className="h-6 w-6 text--600 text-violet-600"
                         aria-hidden="true"
                       />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg leading-6 font-medium text-gray-900"
+                        className="text-xl leading-6 font-medium text-gray-900"
                       >
                         Create new sub timer
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
+                        <p className="text-lg text-gray-500">
                           Want to add onto this routine? Add a new subtimer
                         </p>
                         <div className="w-full flex flex-col items-center mt-3 justify-center gap-2">
@@ -352,12 +549,12 @@ export default function EditTimer() {
                             <select
                               value={newSub.type}
                               onChange={(e) =>
-                                setTimer({
-                                  ...timer,
-                                  color: e.target.value,
+                                setNewSub({
+                                  ...newSub,
+                                  type: e.target.value,
                                 })
                               }
-                              className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 focus:border--700 focus:border-2"
+                              className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
                             >
                               <option value="work"> Work </option>
                               <option value="long"> Long Break </option>
@@ -377,7 +574,7 @@ export default function EditTimer() {
                                   length: parseInt(e.target.value),
                                 });
                               }}
-                              className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 focus:border--700 focus:border-2"
+                              className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
                             />
                           </div>
                         </div>
@@ -388,7 +585,7 @@ export default function EditTimer() {
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg--600 text-base font-medium text-white hover:bg--700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-600 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => addSubTimer()}
                   >
                     Add
@@ -484,8 +681,13 @@ export default function EditTimer() {
                     if (subTimer.type === "work") {
                       return (
                         <div
+                          onClick={() => {
+                            setEditIndex(count);
+                            setEditTimer(subTimer);
+                            setOpenEdit(true);
+                          }}
                           key={count}
-                          className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-7 rounded-tl-lg hover:brightness-95 rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -500,13 +702,24 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
+                          <button
+                            className=" bg-white flex items-center justify-center"
+                            onClick={() => deletesubTimer(count)}
+                          >
+                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
+                          </button>
                         </div>
                       );
                     } else if (subTimer.type === "long") {
                       return (
                         <div
+                          onClick={() => {
+                            setEditIndex(count);
+                            setEditTimer(subTimer);
+                            setOpenEdit(true);
+                          }}
                           key={count}
-                          className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-7 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -521,13 +734,24 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
+                          <button
+                            className=" bg-white flex items-center justify-center"
+                            onClick={() => deletesubTimer(count)}
+                          >
+                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
+                          </button>
                         </div>
                       );
                     } else {
                       return (
                         <div
+                          onClick={() => {
+                            setEditIndex(count);
+                            setEditTimer(subTimer);
+                            setOpenEdit(true);
+                          }}
                           key={count}
-                          className="grid grid-cols-6 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
+                          className="grid grid-cols-7 hover:brightness-95 rounded-tl-lg rounded-bl-lg w-full h-16 border-2 border-gray-200 rounded-md"
                         >
                           <div
                             className={classNames(
@@ -542,6 +766,12 @@ export default function EditTimer() {
                             {" "}
                             {subTimer.type}
                           </div>
+                          <button
+                            className=" bg-white flex items-center justify-center"
+                            onClick={() => deletesubTimer(count)}
+                          >
+                            <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
+                          </button>
                         </div>
                       );
                     }
@@ -549,11 +779,10 @@ export default function EditTimer() {
                   <button
                     onClick={() => setOpenNew(true)}
                     className={classNames(
-                      getThemeColorBackround(),
-                      "text-center text-white hover:brightness-75 text-xl flex items-center justify-center w-full h-16  rounded-md font-bold"
+                      " bg-slate-300 text-center text-white hover:brightness-75 text-xl flex items-center justify-center w-full h-10  rounded-md font-bold"
                     )}
                   >
-                    Add Sub Timer
+                    <FaPlus />
                   </button>
                 </div>
               </div>
@@ -578,9 +807,7 @@ export default function EditTimer() {
           <label className="font-bold text-lg mt-2"> Embedd Link </label>
           <div className="max-w-lg w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
-              {(
-                "https://goal-climber.com/timer/view/" + params.timerId
-              ).replaceAll("-", "-\u2060")}
+              {viewLink.replaceAll("-", "-\u2060")}
             </div>
             <button
               className={classNames(

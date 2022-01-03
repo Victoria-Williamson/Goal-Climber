@@ -397,7 +397,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "md:p-12 p-6 mx-4 my-4 md:my-8 w-5/6 h-max rounded-md flex justify-center items-center flex-col gap-2  max-w-md "
+          "md:p-12 p-6 mx-4 my-2 md:my-8 w-full h-full rounded-md flex justify-center items-center flex-col gap-2  max-w-md max-h-96 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>
@@ -488,7 +488,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -501,7 +501,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}
@@ -515,7 +515,7 @@ export default function ViewTimer(timer: Timer) {
                     getThemeColorText(),
                     "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                   )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden md:block"
+                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
             )}
           >
             {" "}

@@ -72,7 +72,7 @@ export default function Login() {
       body: raw,
     };
 
-    fetch("https://api.goal-climber.com/auth/login", requestOptions)
+    fetch("http://localhost:5500/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
@@ -97,8 +97,9 @@ export default function Login() {
         // Login Sucessful
         else {
           // setUser(resultObj);
-          window.localStorage.setItem("uid", resultObj.localId);
-          window.localStorage.setItem("token", resultObj.idToken);
+          console.log(resultObj);
+          window.localStorage.setItem("uid", resultObj.id);
+          window.localStorage.setItem("_id", resultObj._id);
           navigate("/dashboard");
         }
       })

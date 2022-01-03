@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 const mongoUtil = require("../mongoStart");
+const { ObjectId } = require("mongodb");
 
 router.post(
   "/login",
@@ -38,15 +39,26 @@ router.post(
         throw err;
       }
 
-      const result = JSON.parse(response.body);
+      const results = JSON.parse(response.body);
 
-      if (result.error !== null && result.error !== undefined) {
+      if (results.error !== null && results.error !== undefined) {
         res
-          .status(result.error.code)
-          .send(JSON.stringify({ message: result.error.message }));
+          .status(results.error.code)
+          .send(JSON.stringify({ message: results.error.message }));
         return;
       }
-      res.status(200).send(result);
+
+      console.log(results);
+      db = mongoUtil.get();
+      db.db("project")
+        .collection("users")
+        .findOne({ uid: results.localId }, function (err, result) {
+          if (err) {
+            res.status(400).send(JSON.stringify({ error: err }));
+          } else {
+            res.status(200).send(result);
+          }
+        });
     });
   }
 );
@@ -240,4 +252,55 @@ router.post("/refresh/:oldToken", async (req, res) => {
   });
 });
 
+// Assign Widget to User
+router.put(
+  "/new/widget",
+  body("_id").isString(),
+  body("type").isString(),
+  body("name").isString(),
+  body("wid").isString(),
+  function (req, res) {
+    const newWidget = {
+      type: req.body.type,
+      name: req.body.name,
+      wid: req.body.wid,
+    };
+    db = mongoUtil.get();
+    db.db("project")
+      .collection("users")
+      .updateOne(
+        { _id: ObjectId(req.body._id) },
+        {
+          $push: {
+            widgets: newWidget,
+          },
+        },
+        function (err, result) {
+          if (err) {
+            res.status(400).send(JSON.stringify({ error: err }));
+          } else {
+            res.status(200).send({ success: "timer added" });
+          }
+        }
+      );
+  }
+);
+
+// Get User Widgets
+router.get("/get/widgets/:_id", function (req, res) {
+  if (req.params._id === null || req.params._id === undefined) {
+    res.status(200).send(JSON.stringify({ widgets: [] }));
+    return;
+  }
+  db = mongoUtil.get();
+  db.db("project")
+    .collection("users")
+    .findOne({ _id: ObjectId(req.params._id) }, function (err, result) {
+      if (err) {
+        res.status(400).send(JSON.stringify({ error: err }));
+      } else {
+        res.status(200).send(result);
+      }
+    });
+});
 module.exports = router;
