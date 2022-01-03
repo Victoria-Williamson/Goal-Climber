@@ -36,9 +36,10 @@ const emptySub: subTimer = {
 export default function EditTimer() {
   const [timer, setTimer] = useState<Timer>(emptyTimer);
   const [editTimer, setEditTimer] = useState<subTimer>(emptySub);
+  const [length, setEditLength] = useState(0);
+  const [type, setEditType] = useState("none");
   const params = useParams();
   const [newSub, setNewSub] = useState<subTimer>(emptySub);
-  const [editIndex, setEditIndex] = useState(0);
   const [openNew, setOpenNew] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -207,6 +208,11 @@ export default function EditTimer() {
   }, []);
 
   function saveSubTimer() {
+    for (var i = 0; i < timer.timers.length; i++) {
+      if (timer.timers[i] === editTimer) {
+        console.log("found");
+      }
+    }
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -278,11 +284,11 @@ export default function EditTimer() {
       });
   }
 
-  function deletesubTimer(index: number) {
+  function deletesubTimer(subTimer: subTimer) {
     var tempTimers = [];
 
     for (var i = 0; i < timer.timers.length; i++) {
-      if (i !== index) {
+      if (timer.timers[i] !== subTimer) {
         tempTimers.push(timer.timers[i]);
       }
     }
@@ -324,8 +330,19 @@ export default function EditTimer() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const tempTimers = timer.timers.copyWithin(0, timer.timers.length);
-    tempTimers[editIndex] = editTimer;
+    var tempTimers: Array<subTimer> = [];
+
+    for (var i = 0; i < timer.timers.length; i++) {
+      if (timer.timers[i] === editTimer) {
+        var temp: subTimer = {
+          length: length,
+          type: type,
+        };
+        tempTimers.push(temp);
+      } else {
+        tempTimers.push(timer.timers[i]);
+      }
+    }
 
     var raw = JSON.stringify({
       _id: timer._id,
@@ -430,12 +447,9 @@ export default function EditTimer() {
                           <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
                             <label> Type </label>
                             <select
-                              value={editTimer.type}
+                              value={type}
                               onChange={(e) => {
-                                setEditTimer({
-                                  ...editTimer,
-                                  type: e.target.value,
-                                });
+                                setEditType(e.target.value);
                               }}
                               className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
                             >
@@ -449,13 +463,10 @@ export default function EditTimer() {
                             <input
                               placeholder="0"
                               type={"number"}
-                              value={editTimer.length}
+                              value={length}
                               min={0}
                               onChange={(e) => {
-                                setEditTimer({
-                                  ...editTimer,
-                                  length: parseInt(e.target.value),
-                                });
+                                setEditLength(parseInt(e.target.value));
                               }}
                               className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
                             />
@@ -682,8 +693,9 @@ export default function EditTimer() {
                       return (
                         <div
                           onClick={() => {
-                            setEditIndex(count);
                             setEditTimer(subTimer);
+                            setEditLength(subTimer.length);
+                            setEditType(subTimer.type);
                             setOpenEdit(true);
                           }}
                           key={count}
@@ -704,7 +716,7 @@ export default function EditTimer() {
                           </div>
                           <button
                             className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(count)}
+                            onClick={() => deletesubTimer(subTimer)}
                           >
                             <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
                           </button>
@@ -714,8 +726,9 @@ export default function EditTimer() {
                       return (
                         <div
                           onClick={() => {
-                            setEditIndex(count);
                             setEditTimer(subTimer);
+                            setEditLength(subTimer.length);
+                            setEditType(subTimer.type);
                             setOpenEdit(true);
                           }}
                           key={count}
@@ -736,7 +749,7 @@ export default function EditTimer() {
                           </div>
                           <button
                             className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(count)}
+                            onClick={() => deletesubTimer(subTimer)}
                           >
                             <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
                           </button>
@@ -746,8 +759,9 @@ export default function EditTimer() {
                       return (
                         <div
                           onClick={() => {
-                            setEditIndex(count);
                             setEditTimer(subTimer);
+                            setEditLength(subTimer.length);
+                            setEditType(subTimer.type);
                             setOpenEdit(true);
                           }}
                           key={count}
@@ -768,7 +782,7 @@ export default function EditTimer() {
                           </div>
                           <button
                             className=" bg-white flex items-center justify-center"
-                            onClick={() => deletesubTimer(count)}
+                            onClick={() => deletesubTimer(subTimer)}
                           >
                             <AiFillDelete className="fill-red-600 h-full w-auto py-5" />
                           </button>

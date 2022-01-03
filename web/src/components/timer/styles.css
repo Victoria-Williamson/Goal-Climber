@@ -1,3 +1,7 @@
 .lowbackground {
   background: rgba(255, 255, 255, 0.5);
 }
+
+.largeTxt {
+  font-size: min(calc(2vw + 2vh + 2vmin), 36px);
+}
