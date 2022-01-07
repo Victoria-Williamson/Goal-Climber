@@ -75,6 +75,7 @@ export default function Login() {
     fetch("https://api.goal-climber.com/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
+        console.log(result);
         const resultObj = JSON.parse(result);
 
         // Input Error

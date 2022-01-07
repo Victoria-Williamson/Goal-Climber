@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { FaPlay, FaPause, FaForward } from "react-icons/fa";
 import { RestartAlt } from "@mui/icons-material";
 import { theme } from "../../../tailwind.config";
+import { time } from "console";
 
 interface propsI {
   total: number;
@@ -57,10 +58,6 @@ export default function ViewTimer(timer: Timer) {
     initialTime,
     interval
   );
-
-  const [playActive] = useSound("./mixkit-warning-alarm-buzzer-991.wav", {
-    volume: 0.25,
-  });
 
   function getThemeColor900() {
     if (timer.color === "emerald") {
@@ -205,9 +202,6 @@ export default function ViewTimer(timer: Timer) {
     return "fill-emerald-500";
   }
   if (timeLeft === 0 && hasStarted) {
-    const alarmSound = require("./mixkit-warning-alarm-buzzer-991.wav");
-    const alarmAudio = new Audio(alarmSound.default);
-    alarmAudio.play();
   }
 
   /* For a given subtimer index, this returns the appropriate UI to describe an upcoming timer */
@@ -297,7 +291,7 @@ export default function ViewTimer(timer: Timer) {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-full  px-12 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+        <div className="mt-8 w-4/6  px-12 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -307,14 +301,74 @@ export default function ViewTimer(timer: Timer) {
             : "00"}
         </div>
       );
+    } else if (timer.timers.length === 0) {
+      return (
+        <div className="mt-8 w-4/6 px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+          00:00
+        </div>
+      );
     }
     return (
-      <div className="mt-8 w-full  px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+      <div className="mt-8 w-4/6 lg:w-full px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
         : {"00"}
       </div>
+    );
+  }
+
+  function GetTaskTitle() {
+    if (timer.timers === undefined) {
+      return <></>;
+    }
+
+    if (timer.timers.length === 0) {
+      return <></>;
+    }
+
+    return (
+      <>
+        <div
+          className={classNames(
+            timer.timers[timerIndex].type === "work"
+              ? classNames(
+                  getThemeColorText(),
+                  "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                )
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+          )}
+        >
+          {" "}
+          work
+        </div>
+        <div
+          className={classNames(
+            timer.timers[timerIndex].type === "short"
+              ? classNames(
+                  getThemeColorText(),
+                  "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                )
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+          )}
+        >
+          {" "}
+          short break
+        </div>
+        <div
+          className={classNames(
+            timer.timers[timerIndex].type === "long"
+              ? classNames(
+                  getThemeColorText(),
+                  "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
+                )
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+          )}
+        >
+          {" "}
+          long break
+        </div>
+      </>
     );
   }
 
@@ -324,7 +378,7 @@ export default function ViewTimer(timer: Timer) {
       if (!hasStarted) {
         return (
           <button
-            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
+            className="rounded-full bg-white h-12 w-12  mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               setHasStarted(true);
@@ -340,7 +394,7 @@ export default function ViewTimer(timer: Timer) {
       if (timeLeft !== 0) {
         return (
           <button
-            className="rounded-full bg-white h-10 w-10 mb-1 p-3 flex items-center justify-center"
+            className="rounded-full bg-white h-12 w-12 mb-1 p-3 flex items-center justify-center"
             onClick={() => {
               setshowStop(false);
               resume();
@@ -357,7 +411,7 @@ export default function ViewTimer(timer: Timer) {
     if (hasStarted && timeLeft === 0) {
       return (
         <button
-          className="rounded-full bg-white h-10 w-10  mb-1 p-3 flex items-center justify-center"
+          className="rounded-full bg-white h-12 w-12 mb-1 p-3 flex items-center justify-center"
           onClick={() => {
             setTimerIndex(timerIndex + 1);
             start(timer.timers[timerIndex].length * 60000);
@@ -371,7 +425,7 @@ export default function ViewTimer(timer: Timer) {
     }
     return (
       <button
-        className="rounded-full bg-white  h-10 w-10 mb-1 p-3 flex items-center justify-center"
+        className="rounded-full bg-white h-12 w-12  mb-1 p-3 flex items-center justify-center"
         onClick={() => {
           setshowStop(true);
           pause();
@@ -397,7 +451,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "w-11/12 p-6 mx-4 my-2l rounded-md flex justify-center items-center flex-col gap-2 "
+          "w-11/12 h-full xl:p-6 mx-4 my-2 rounded-md flex justify-center items-center flex-col gap-2 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>
@@ -481,54 +535,16 @@ export default function ViewTimer(timer: Timer) {
         </div>
 
         <div className="flex flex-no-wrap flex-row items-center justify-center gap-4 text-xs  text-center">
-          <div
-            className={classNames(
-              timer.timers[timerIndex].type === "work"
-                ? classNames(
-                    getThemeColorText(),
-                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white text-"
-                  )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
-            )}
-          >
-            {" "}
-            work
-          </div>
-          <div
-            className={classNames(
-              timer.timers[timerIndex].type === "short"
-                ? classNames(
-                    getThemeColorText(),
-                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
-                  )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
-            )}
-          >
-            {" "}
-            short break
-          </div>
-
-          <div
-            className={classNames(
-              timer.timers[timerIndex].type === "long"
-                ? classNames(
-                    getThemeColorText(),
-                    "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
-                  )
-                : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
-            )}
-          >
-            {" "}
-            long break
-          </div>
+          <GetTaskTitle />
         </div>
+
         <ToggleClock />
 
-        <div className="w-full items-center justify-center flex gap-4 mt-5">
+        <div className="w-full items-center justify-center flex gap-4 mt-7">
           <button
             className={classNames(
               getThemeColorText(),
-              " rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black"
+              " rounded-full bg-white h-10 w-10mb-1 p-1 flex items-center justify-center font-black"
             )}
             onClick={() => {
               reset();
@@ -542,7 +558,7 @@ export default function ViewTimer(timer: Timer) {
           </button>
           <ToggleStopStart />
           <button
-            className="rounded-full bg-white h-8 w-8 mb-1 p-1 flex items-center justify-center font-black text-emerald-500"
+            className="rounded-full bg-white h-10 w-10 mb-1 p-1 flex items-center justify-center font-black text-emerald-500"
             onClick={() => setOpen(true)}
           >
             <HiDotsHorizontal

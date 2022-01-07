@@ -12,12 +12,14 @@
 
 @media only screen and (max-width: 1024px) {
   .demoHeight {
-    height: min(60vh);
+    width: 100vw;
+    height: 500px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .demoHeight {
-    height: min(55vh);
+    width: 500px;
+    height: 500px;
   }
 }

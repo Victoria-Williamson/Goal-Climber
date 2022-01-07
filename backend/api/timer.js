@@ -9,18 +9,47 @@ const { ObjectId } = require("mongodb");
 router.post(
   "/create",
   body("uid").isString(),
-  body("title").isString(),
-  body("color").isString(),
-  body("timers").isArray(),
+  body("name").isString(),
+
   function (req, res) {
+    const Timer = {
+      uid: req.body.uid,
+      title: req.body.title,
+      color: "emerald",
+      title: req.body.name,
+      isDarkMode: false,
+      timers: [],
+    };
     db = mongoUtil.get();
     db.db("project")
       .collection("timers")
-      .insertOne(req.body, function (err, result) {
+      .insertOne(Timer, function (err, result) {
         if (err) {
           res.status(400).send(JSON.stringify({ error: err }));
         } else {
-          res.status(200).send(JSON.stringify({ result }));
+          const newWidget = {
+            type: req.body.type,
+            name: req.body.name,
+            wid: result.insertedId,
+          };
+          db = mongoUtil.get();
+          db.db("project")
+            .collection("users")
+            .updateOne(
+              { _id: ObjectId(req.body.uid) },
+              {
+                $push: {
+                  widgets: newWidget,
+                },
+              },
+              function (err, result) {
+                if (err) {
+                  res.status(400).send(JSON.stringify({ error: err }));
+                } else {
+                  res.status(200).send({ success: "timer added" });
+                }
+              }
+            );
         }
       });
   }
@@ -125,7 +154,7 @@ router.put(
 );
 
 // Delete Timer
-router.delete("/delete/:_id", function (req, res) {
+router.delete("/:_id", function (req, res) {
   if (req.params._id === null || req.params._id === undefined) {
     res
       .status(400)
