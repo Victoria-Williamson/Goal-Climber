@@ -139,13 +139,13 @@ export default function SignUp() {
     }
   }
   return (
-    <div className="w-screen  flex items-center justify-center mx-12">
-      <div className="mx-10 hidden h-auto smd:grid md:grid-cols-2 md:justify-center md:items-center bg-white border-gray-100 rounded-xl smd:border-2">
+    <div className="w-screen  h-full flex items-center justify-center mx-12">
+      <div className="mx-10 hidden h-full smd:grid md:grid-cols-2 md:justify-center md:items-center bg-white rounded-xl">
         <div>
           <div className="  flex flex-col  items-center  justify-center p-8 h-auto  gap-2 my-5">
             <div className="text-4xl mb-3  text-violet-800 ">
               {" "}
-              Weclome to <text className="logoFont">Goal Climber </text>{" "}
+              Welcome to <text className="logoFont">Goal Climber </text>{" "}
             </div>
             <Error />
             <div className="flex flex-row items-start justify-center gap-2 text-gray-700 w-5/6">

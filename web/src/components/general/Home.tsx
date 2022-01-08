@@ -1,8 +1,9 @@
 import logo from "../../logos/Logo.svg";
 import title from "../../logos/Title.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const nav = useNavigate();
   return (
     <div className="bg-gray-800 w-screen h-screen overflow-hidden">
       <div className="flex w-full h-full items-center justify-center flex-col lg:flex-row px-8 gap-4">
@@ -14,20 +15,25 @@ export default function Home() {
           {" "}
           <div className="font-bold text-2xl lg:text-5xl text-white lg:mt-0 mt-8">
             {" "}
-            Create Notion widgets that will help you reach your goals.
+            Widgets that will help you reach your goals.
           </div>
           <div className="text-xl lg:text-3xl text-white mb-8">
-            Looking for ways to upgrade your Notion page? Create one of widgets
-            to add additional functionallity and style to your Notion.{" "}
+            Create free, customizeable, and beautiful widgets in minutes{" "}
           </div>
           <div className="flex items-center justify-center mt-4 flex-row  gap-5">
-            <button className="h-16 bg-violet-700 text-white lg:w-48 w-40 rounded-lg lg:text-2xl text-xl font-bold hover:brightness-90">
+            <button
+              className="h-16 bg-violet-700 text-white lg:w-48 w-40 rounded-lg lg:text-2xl text-xl font-bold hover:brightness-90"
+              onClick={() => nav("/login")}
+            >
               {" "}
-              <Link to="/login"> Log In </Link>
+              Log In
             </button>
-            <button className="h-16 bg-white text-violet-700 border-4 border-violet-700 lg:w-48 w-40 rounded-lg lg:text-2xl text-xl font-bold hover:brightness-90">
+            <button
+              className="h-16 bg-white text-violet-700 border-4 border-violet-700 lg:w-48 w-40 rounded-lg lg:text-2xl text-xl font-bold hover:brightness-90"
+              onClick={() => nav("/signup")}
+            >
               {" "}
-              <Link to="/signup"> Sign Up</Link>
+              Sign Up
             </button>
           </div>
         </div>
