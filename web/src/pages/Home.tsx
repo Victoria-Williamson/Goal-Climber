@@ -22,9 +22,6 @@ export default function HomePage() {
   });
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <div className="sticky top-0">
-        <NavBar />
-      </div>
       <Home />
     </div>
   );
