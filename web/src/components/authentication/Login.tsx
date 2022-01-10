@@ -165,7 +165,7 @@ export default function Login() {
             login.email.length > 0 &&
             login.validPassword &&
             login.password
-            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
+            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  hover:bg-violet-500 text-lg font-bold"
             : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
         )}
         onClick={() => doLogin()}

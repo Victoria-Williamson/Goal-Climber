@@ -22,6 +22,7 @@ module.exports = {
     extend: {
       colors: {
         navy: {
+          400: "#3959B7",
           500: "#1E40AF",
         },
         blueGray: {
