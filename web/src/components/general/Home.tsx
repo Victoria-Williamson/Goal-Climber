@@ -38,7 +38,7 @@ export default function Home() {
           <img className="object-cover h-full w-full" src={backgroundLg} />
         </div>
       </div>
-      <div className="w-screen h-screen md:hidden bg-gradient-to-r from-navy-500 to-sky-300">
+      <div className="w-screen h-screen md:hidden bg-gradient-to-b  from-navy-500 to-sky-300">
         <div className="absolute z-10 h-3/4 overflow-hidden">
           <div className="flex h-5/6 items-center justify-center flex-col gap-5 py-24 px-4">
             <div className="text-6xl font-black logoFont text-white">
@@ -49,14 +49,14 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-center flex-row gap-4 mt-4">
               <button
-                className="h-12 bg-white shadow-lg text-navy-500 lg:w-48 w-40 rounded-lg  text-xl font-bold hover:brightness-90"
+                className="h-12 bg-white shadow-lg text-navy-400 lg:w-48 w-40 rounded-lg  text-xl font-bold hover:brightness-90"
                 onClick={() => nav("/login")}
               >
                 {" "}
                 Log In
               </button>
               <button
-                className="h-12 bg-white  shadow-lg text-navy-500  lg:w-48 w-40 rounded-lg text-xl font-bold hover:brightness-90"
+                className="h-12 bg-white  shadow-lg text-navy-400  lg:w-48 w-40 rounded-lg text-xl font-bold hover:brightness-90"
                 onClick={() => nav("/signup")}
               >
                 {" "}

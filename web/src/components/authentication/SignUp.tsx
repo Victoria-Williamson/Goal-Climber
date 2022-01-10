@@ -306,7 +306,7 @@ export default function SignUp() {
           <img src={logo} className="h-72 w-auto" alt="logo" />
         </div>
       </div>
-      <div className="smd:hidden block h-screen">
+      <div className="smd:hidden block h-full">
         <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-screen max-w-md smd:border-2 border-gray-100 gap-1">
           <img src={logo} className=" h-48 w-auto" alt="logo" />
 

@@ -1,5 +1,6 @@
 import Login from "../components/authentication/Login";
 import NavBar from "../components/general/NavBar";
+import "./styles.css";
 export default function LoginPage() {
   return (
     <div>
