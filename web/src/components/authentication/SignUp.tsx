@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../logos/Logo-with-Title.svg";
 import * as EmailValidator from "email-validator";
 import PasswordStrengthBar from "react-password-strength-bar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 
 export default function SignUp() {
@@ -21,6 +21,8 @@ export default function SignUp() {
     validPassword: true,
     securePassword: true,
   });
+
+  const nav = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     firstName: "",
@@ -303,12 +305,16 @@ export default function SignUp() {
           </div>
         </div>
         <div className="flex items-center flex-col justify-center gap-4">
-          <img src={logo} className="h-72 w-auto" alt="logo" />
+          <button onClick={() => nav("/")}>
+            <img src={logo} className="h-72 w-auto" alt="logo" />
+          </button>
         </div>
       </div>
       <div className="smd:hidden block h-full">
         <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-screen max-w-md smd:border-2 border-gray-100 gap-1">
-          <img src={logo} className=" h-48 w-auto" alt="logo" />
+          <button onClick={() => nav("/")}>
+            <img src={logo} className="h-48 w-auto" alt="logo" />
+          </button>
 
           <Error />
 

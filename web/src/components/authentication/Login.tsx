@@ -109,7 +109,9 @@ export default function Login() {
 
   return (
     <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-full max-w-md smd:border-2 border-gray-100 gap-1">
-      <img src={logo} className="h-48 w-auto" alt="logo" />
+      <button onClick={() => navigate("/")}>
+        <img src={logo} className="h-48 w-auto" alt="logo" />
+      </button>
 
       <Error />
       <div className="flex flex-col items-start justify-center gap-2 text-slate-700 w-5/6">
