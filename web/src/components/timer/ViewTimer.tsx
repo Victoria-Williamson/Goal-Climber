@@ -291,7 +291,7 @@ export default function ViewTimer(timer: Timer) {
   function ToggleClock() {
     if (hasStarted) {
       return (
-        <div className="mt-8 w-4/6  px-12 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+        <div className="mt-8 w-4/6  px-12 py-8 h-auto  mx-12 text-center lowbackground rounded-md font-black  text-lg sm:text-xl text-white flex items-center justify-center max-w-sm">
           {Math.floor(timeLeft / 60000) !== 0
             ? Math.floor(timeLeft / 60000)
             : "00"}{" "}
@@ -303,13 +303,13 @@ export default function ViewTimer(timer: Timer) {
       );
     } else if (timer.timers.length === 0) {
       return (
-        <div className="mt-8 w-4/6 px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+        <div className="mt-8 w-4/6 px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
           00:00
         </div>
       );
     }
     return (
-      <div className="mt-8 w-4/6 lg:w-full px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-3xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+      <div className="mt-8 w-4/6 lg:w-full px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -451,7 +451,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "w-11/12 h-full xl:p-6 mx-4 my-2 rounded-md flex justify-center items-center flex-col gap-2 "
+          "w-11/12 h-full xl:p-6 m-4 rounded-md flex justify-center items-center flex-col gap-2 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>

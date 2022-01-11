@@ -7,6 +7,7 @@ import { FaCopy, FaLink, FaPlus } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import "./styles.css";
+import { TailSpin } from "react-loader-spinner";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { ExclamationIcon } from "@heroicons/react/outline";
@@ -47,7 +48,6 @@ export default function EditTimer() {
   const [isLoaded, setIsLoaded] = useState(false);
   const nav = useNavigate();
 
-  console.log(timer);
   var count = -1;
 
   function getThemeColor900() {
@@ -219,7 +219,6 @@ export default function EditTimer() {
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: any) => {
-        console.log(data);
         if (data.success !== undefined && data.success != null) {
           nav("/dashboard");
         }
@@ -338,6 +337,7 @@ export default function EditTimer() {
             .then((response) => response.json())
             // 4. Setting *dogImage* to the image url that we received from the response above
             .then((data: Timer) => {
+              setIsLoaded(true);
               setTimer(data);
             });
         }
@@ -396,13 +396,20 @@ export default function EditTimer() {
   }
   const cancelButtonRef = useRef(null);
 
-  if (!isLoaded) {
-    return (
-      <div className="h-full w-full items-center justify-center">
-        {" "}
-        Is Loading
-      </div>
-    );
+  function ToggleLoading() {
+    if (isLoaded) {
+      return <></>;
+    } else {
+      return (
+        <>
+          <div className="w-screen h-screen min-h-full min-w-full absolute top-0 left-0   z-10 bg-gray-800 bg-opacity-75 transition-opacity"></div>
+          <div className="absolute w-screen h-screen flex z-20 items-center top-0 left-0 justify-center flex-col gap-4">
+            <div className="font-bold text-xl text-white"> Loading...</div>
+            <TailSpin color={"white"} arialLabel="loading-indicator" />
+          </div>{" "}
+        </>
+      );
+    }
   }
   return (
     <>
@@ -876,6 +883,7 @@ export default function EditTimer() {
             >
               <FaLink className="fill-white" />
             </button>
+            <ToggleLoading />
           </div>
         </div>
       </div>

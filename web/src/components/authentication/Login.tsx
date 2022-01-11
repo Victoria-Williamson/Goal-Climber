@@ -3,11 +3,7 @@ import logo from "../../logos/Logo-with-Title.svg";
 import * as EmailValidator from "email-validator";
 import { inputError } from "../../interfaces/Auth";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-
-interface User {
-  idToken: string;
-  localId: string;
-}
+import { TailSpin } from "react-loader-spinner";
 export default function Login() {
   function classNames(...classes: Array<string>) {
     return classes.filter(Boolean).join(" ");
@@ -20,6 +16,7 @@ export default function Login() {
     validPassword: true,
   });
 
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(undefined);
   const [errorMsg, setError] = useState("");
   let navigate = useNavigate();
@@ -41,6 +38,22 @@ export default function Login() {
     }
   }
 
+  function ToggleLoading() {
+    if (!loading) {
+      return <></>;
+    } else {
+      return (
+        <>
+          <div className="w-screen h-screen absolute   z-10 bg-gray-800 bg-opacity-75 transition-opacity"></div>
+          <div className="absolute w-screen h-screen flex z-20 items-center justify-center flex-col gap-4">
+            <div className="font-bold text-xl text-white"> Loading...</div>
+            <TailSpin color={"white"} arialLabel="loading-indicator" />
+          </div>{" "}
+        </>
+      );
+    }
+  }
+
   function Error() {
     var msg = errorMsg.replaceAll("_", " ").toLowerCase();
 
@@ -48,7 +61,7 @@ export default function Login() {
 
     if (errorMsg !== "") {
       return (
-        <div className="text-red-700 text-md text-left"> Error: {msg} </div>
+        <div className="text-red-700 text-md text-center"> Error: {msg} </div>
       );
     } else {
       return (
@@ -58,6 +71,8 @@ export default function Login() {
   }
 
   function doLogin() {
+    setLoading(true);
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -75,7 +90,7 @@ export default function Login() {
     fetch("https://api.goal-climber.com/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(result);
+        setLoading(false);
         const resultObj = JSON.parse(result);
 
         // Input Error
@@ -98,7 +113,7 @@ export default function Login() {
         // Login Sucessful
         else {
           // setUser(resultObj);
-          console.log(resultObj);
+          console.log("success", resultObj);
           window.localStorage.setItem("uid", resultObj.id);
           window.localStorage.setItem("_id", resultObj._id);
           navigate("/dashboard");
@@ -109,7 +124,9 @@ export default function Login() {
 
   return (
     <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-full max-w-md smd:border-2 border-gray-100 gap-1">
-      <img src={logo} className="h-48 w-auto" alt="logo" />
+      <button onClick={() => navigate("/")}>
+        <img src={logo} className="h-48 w-auto" alt="logo" />
+      </button>
 
       <Error />
       <div className="flex flex-col items-start justify-center gap-2 text-slate-700 w-5/6">
@@ -164,15 +181,18 @@ export default function Login() {
           login.validEmail &&
             login.email.length > 0 &&
             login.validPassword &&
-            login.password
-            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-            : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+            login.password.length > 0
+            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  hover:bg-violet-500 text-lg font-bold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
         )}
-        onClick={() => doLogin()}
+        onClick={() => {
+          doLogin();
+        }}
       >
         {" "}
         Log In{" "}
       </button>
+
       <br />
 
       <button className=" text-violet-700">
@@ -183,6 +203,7 @@ export default function Login() {
         {" "}
         <Link to="/reset"> Forgot Password</Link>
       </button>
+      <ToggleLoading />
     </div>
   );
 }

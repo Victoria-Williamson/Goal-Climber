@@ -8,12 +8,7 @@ import title from "../../logos/Title.svg";
 import { FaUser } from "react-icons/fa";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FiLogOut, FiLogIn } from "react-icons/fi";
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Log In", href: "/login", current: false },
-  { name: "Sign Up", href: "/signup", current: false },
-  { name: "Reset Password", href: "/reset", current: false },
-];
+const navigation = [{ name: "Home", href: "/", current: true }];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -29,7 +24,7 @@ export default function NavBar() {
   }, [user]);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 py-1">
+    <Disclosure as="nav" className=" bg-white shadow-sm">
       {({ open }) => (
         <>
           <div className="max-w-9xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -80,9 +75,9 @@ export default function NavBar() {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            ? " text-violet-900 "
+                            : "text-gray-500 brightness-75  hover:bg-violet-50",
+                          "px-3 py-2 rounded-md text-lg font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -108,7 +103,7 @@ export default function NavBar() {
                   <FiLogOut
                     className={classNames(
                       user !== undefined && user !== null
-                        ? "text-gray-300 h-7 w-auto"
+                        ? "text-gray-500 h-7 w-auto"
                         : "hidden"
                     )}
                   />
@@ -116,7 +111,7 @@ export default function NavBar() {
                 <button
                   className={classNames(
                     user === undefined || user === null
-                      ? "text-purple-300 h-7 w-auto"
+                      ? "text-gray-500  h-7 w-auto"
                       : "hidden"
                   )}
                   onClick={() => {
@@ -127,7 +122,7 @@ export default function NavBar() {
                   <FiLogIn
                     className={classNames(
                       user === undefined || user === null
-                        ? "text-gray-300 h-7 w-auto"
+                        ? "text-gray-500  h-7 w-auto"
                         : "hidden"
                     )}
                   />
@@ -137,7 +132,7 @@ export default function NavBar() {
           </div>
 
           <Disclosure.Panel className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -145,8 +140,8 @@ export default function NavBar() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-gray-100 text-gray-700"
+                      : "text-gray-700  hover:text-violet-700",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

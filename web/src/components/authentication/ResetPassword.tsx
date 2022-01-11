@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "../../logos/Logo-with-Title.svg";
 import * as EmailValidator from "email-validator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
   function classNames(...classes: Array<string>) {
@@ -12,6 +12,8 @@ export default function ResetPassword() {
     email: "",
     validEmail: true,
   });
+
+  const nav = useNavigate();
 
   const [errorMsg, setError] = useState("");
 
@@ -76,7 +78,10 @@ export default function ResetPassword() {
 
   return (
     <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-full max-w-md smd:border-2 border-gray-100 gap-5 px-10">
-      <img src={logo} className="h-48 w-auto" alt="logo" />
+      <button onClick={() => nav("/")}>
+        <img src={logo} className="h-48 w-auto" alt="logo" />
+      </button>
+
       <div className="text-gray-500 text-md text-left">
         {" "}
         Please enter the email you created an account with.
@@ -113,10 +118,11 @@ export default function ResetPassword() {
       </div>
 
       <button
+        disabled={user.validEmail && user.email.length > 0}
         className={classNames(
           user.validEmail && user.email.length > 0
-            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-            : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:bg-violet-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg font-bold"
+            : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
         )}
         onClick={() => doReset()}
       >

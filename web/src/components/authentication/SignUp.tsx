@@ -2,13 +2,16 @@ import { useState } from "react";
 import logo from "../../logos/Logo-with-Title.svg";
 import * as EmailValidator from "email-validator";
 import PasswordStrengthBar from "react-password-strength-bar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
+import { TailSpin } from "react-loader-spinner";
 
 export default function SignUp() {
   function classNames(...classes: Array<string>) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState({
     value: "",
@@ -21,6 +24,8 @@ export default function SignUp() {
     validPassword: true,
     securePassword: true,
   });
+
+  const nav = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     firstName: "",
@@ -38,7 +43,21 @@ export default function SignUp() {
       return <></>;
     }
   }
-
+  function ToggleLoading() {
+    if (!loading) {
+      return <></>;
+    } else {
+      return (
+        <>
+          <div className="w-screen h-min-h-full absolute   z-10 bg-gray-800 bg-opacity-75 transition-opacity"></div>
+          <div className="absolute w-screen h-screen flex z-20 items-center justify-center flex-col gap-4">
+            <div className="font-bold text-xl text-white"> Loading...</div>
+            <TailSpin color={"white"} arialLabel="loading-indicator" />
+          </div>{" "}
+        </>
+      );
+    }
+  }
   function isValidPassword(isConfirm: boolean, value: string) {
     if (!isConfirm) {
       return password.confirm === value && password.securePassword;
@@ -78,6 +97,7 @@ export default function SignUp() {
   }
 
   function doSignUp() {
+    setLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -98,7 +118,7 @@ export default function SignUp() {
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
-
+        setLoading(false);
         // Firebase Error
         if (resultObj.errors !== null && resultObj.errors !== undefined) {
           setError("Please make sure all inputs are filled");
@@ -276,15 +296,23 @@ export default function SignUp() {
 
             <br />
             <button
+              disabled={
+                email.validEmail &&
+                email.value.length > 0 &&
+                password.validPassword &&
+                password.value.length > 0 &&
+                userInfo.firstName.length > 0 &&
+                userInfo.lastName.length > 0
+              }
               className={classNames(
                 email.validEmail &&
                   email.value.length > 0 &&
                   password.validPassword &&
-                  password.value &&
+                  password.value.length > 0 &&
                   userInfo.firstName.length > 0 &&
                   userInfo.lastName.length > 0
-                  ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-                  : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+                  ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:bg-violet-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg font-bold"
+                  : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
               )}
               onClick={() => doSignUp()}
             >
@@ -303,12 +331,16 @@ export default function SignUp() {
           </div>
         </div>
         <div className="flex items-center flex-col justify-center gap-4">
-          <img src={logo} className="h-72 w-auto" alt="logo" />
+          <button onClick={() => nav("/")}>
+            <img src={logo} className="h-72 w-auto" alt="logo" />
+          </button>
         </div>
       </div>
-      <div className="smd:hidden block h-screen">
-        <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-screen max-w-md smd:border-2 border-gray-100 gap-1">
-          <img src={logo} className=" h-48 w-auto" alt="logo" />
+      <div className="smd:hidden block h-full p-8 max-h-screen overflow-y-auto">
+        <div className="bg-white overflow-y-auto h-full rounded-xl flex flex-col  items-center  justify-center px-8 py-10 w-screen max-w-md smd:border-2 border-gray-100 gap-1">
+          <button onClick={() => nav("/")}>
+            <img src={logo} className="h-48 w-auto" alt="logo" />
+          </button>
 
           <Error />
 
@@ -445,8 +477,8 @@ export default function SignUp() {
                 password.value &&
                 userInfo.firstName.length > 0 &&
                 userInfo.lastName.length > 0
-                ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-                : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+                ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:bg-violet-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg font-bold"
+                : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
             )}
             onClick={() => doSignUp()}
           >
@@ -462,6 +494,7 @@ export default function SignUp() {
             {" "}
             <Link to="/reset"> Reset Password</Link>
           </button>
+          <ToggleLoading />
         </div>
       </div>
     </div>
