@@ -12,9 +12,9 @@ export default function SignUpPage() {
     // storing input name
     var temp = window.localStorage.getItem("uid");
 
-    if (temp !== undefined && temp !== null) {
-      nav("/dashboard");
-    }
+    // if (temp !== undefined && temp !== null) {
+    //   nav("/dashboard");
+    // }
   }, []);
   return (
     <div>

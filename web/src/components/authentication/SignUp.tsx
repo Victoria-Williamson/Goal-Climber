@@ -4,11 +4,14 @@ import * as EmailValidator from "email-validator";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
+import { TailSpin } from "react-loader-spinner";
 
 export default function SignUp() {
   function classNames(...classes: Array<string>) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState({
     value: "",
@@ -40,7 +43,21 @@ export default function SignUp() {
       return <></>;
     }
   }
-
+  function ToggleLoading() {
+    if (!loading) {
+      return <></>;
+    } else {
+      return (
+        <>
+          <div className="w-screen h-min-h-full absolute   z-10 bg-gray-800 bg-opacity-75 transition-opacity"></div>
+          <div className="absolute w-screen h-screen flex z-20 items-center justify-center flex-col gap-4">
+            <div className="font-bold text-xl text-white"> Loading...</div>
+            <TailSpin color={"white"} arialLabel="loading-indicator" />
+          </div>{" "}
+        </>
+      );
+    }
+  }
   function isValidPassword(isConfirm: boolean, value: string) {
     if (!isConfirm) {
       return password.confirm === value && password.securePassword;
@@ -80,6 +97,7 @@ export default function SignUp() {
   }
 
   function doSignUp() {
+    setLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -100,7 +118,7 @@ export default function SignUp() {
       .then((response) => response.text())
       .then((result) => {
         const resultObj = JSON.parse(result);
-
+        setLoading(false);
         // Firebase Error
         if (resultObj.errors !== null && resultObj.errors !== undefined) {
           setError("Please make sure all inputs are filled");
@@ -318,8 +336,8 @@ export default function SignUp() {
           </button>
         </div>
       </div>
-      <div className="smd:hidden block h-full">
-        <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-screen max-w-md smd:border-2 border-gray-100 gap-1">
+      <div className="smd:hidden block h-full p-8 max-h-screen overflow-y-auto">
+        <div className="bg-white overflow-y-auto h-full rounded-xl flex flex-col  items-center  justify-center px-8 py-10 w-screen max-w-md smd:border-2 border-gray-100 gap-1">
           <button onClick={() => nav("/")}>
             <img src={logo} className="h-48 w-auto" alt="logo" />
           </button>
@@ -476,6 +494,7 @@ export default function SignUp() {
             {" "}
             <Link to="/reset"> Reset Password</Link>
           </button>
+          <ToggleLoading />
         </div>
       </div>
     </div>

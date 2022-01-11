@@ -126,18 +126,18 @@ export default function Dashboard() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-screen">
+              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8  w-screen max-w-xl">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full">
-                  <div className="sm:flex sm:items-start w-full">
+                  <div className="flex items-start w-full px-8 ">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg leading-6 font-medium text-gray-900"
+                        className="text-3xl text-center m-4 leading-6 text-violet-900   font-bold"
                       >
                         Create New Widget
                       </Dialog.Title>
                       <div className="mt-2 w-full">
-                        <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                        <div className="flex flex-col  items-start justify-center gap-3 text-gray-700 w-full">
                           <label> Name </label>
                           <input
                             placeholder="Widget Name"
@@ -149,11 +149,12 @@ export default function Dashboard() {
                                 name: e.target.value,
                               });
                             }}
-                            className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
+                            className="border-gray-400 focus:border-violet-700 bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                      <div className="flex flex-col  items-start justify-center gap-3 text-gray-700 w-full mt-4">
                         <label> Type </label>
                         <select
                           value={newWidget.type}
@@ -163,7 +164,8 @@ export default function Dashboard() {
                               type: e.target.value,
                             });
                           }}
-                          className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
+                          className="border-gray-400 focus:bri bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                         >
                           <option value="timer"> Timer</option>
                         </select>
@@ -171,10 +173,11 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div className="bg-gray-50 py-4 flex items-center justify-center gap-5 px-12">
                   <button
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-800 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="border-gray-400 font-bold text-xl text-white bg-violet-800 hover:bg-violet-900 rounded-lg 
+                    appearance-none  h-12  w-full py-2 px-4  leading-tight"
                     onClick={() => {
                       createWidget();
                       setOpen(false);
@@ -184,7 +187,8 @@ export default function Dashboard() {
                   </button>
                   <button
                     type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="border-gray-400 font-bold text-xl text-white bg-red-700 hover:bg-red-800   rounded-lg 
+                    appearance-none  h-12  w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                     onClick={() => {
                       setOpen(false);
                     }}
@@ -198,11 +202,45 @@ export default function Dashboard() {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="h-screen w-screen p-4">
-        <div className="flex items-center justify-center flex-col px-4 h-full w-full">
-          <div className="w-full h-full p-4 items-center justify-center text-center">
-            <h1 className="font-bold text-3xl mb-8"> Your Widgets</h1>
-            <div className="flex rounded-lg  h-auto w-full justify-center items-center p-4 flex-row gap-8 flex-wrap">
+      <div className="h-screen w-screen">
+        <div className="flex items-center justify-center flex-col h-full w-full">
+          <div className="w-full h-full items-center justify-center text-center ">
+            <div className="w-screen   h-auto mt-5  px-0 flex flex-col md:flex-row items-center md:justify-start justify-center">
+              <div className="py-4 px-8 lg:px-24 text-violet-30 font-bold text-3xl md:text-4xl text-gray-600">
+                {" "}
+                Dashboard
+              </div>
+              <div className="w-screen  h-full px-1 flex flex-col items-end justify-center gap-5">
+                <div className="flex-row flex items-center justify-center gap-2 md:max-w-md w-screen md:w-1/2">
+                  <div className="text-lg font-semibold text-gray-500">
+                    Filter by:
+                  </div>
+
+                  <select
+                    value={"All"}
+                    className="border-gray-400 focus:bri bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded  py-2 px-4 w-72 leading-tight focus:outline-none   focus:border-2"
+                  >
+                    <option value="timer"> All </option>
+                  </select>
+                </div>
+                <div className="flex-row flex items-center justify-center gap-2 md:max-w-md w-full md:w-1/2">
+                  <div className="text-lg font-semibold text-gray-500">
+                    Sort by:
+                  </div>
+
+                  <select
+                    value={"All"}
+                    className="border-gray-400 focus:bri bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded  py-2 px-4 w-72 leading-tight focus:outline-none   focus:border-2"
+                  >
+                    <option value="timer"> All </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid auto-rows-auto grid-cols-1 md:grid-cols-2 xl:grid-cols-4 rounded-lg  h-auto w-full justify-center items-center p-4 gap-8 mt-8 lg:px-28">
               {widgets?.map((widget) => {
                 if (widget.type === "timer") {
                   return (
@@ -214,8 +252,8 @@ export default function Dashboard() {
                           nav(link);
                         }}
                       >
-                        <div className=" w-96 h-64 grid grid-rows-6 rounded-2xl shadow-md">
-                          <div className="row-span-4 bg-violet-300 rounded-t-xl p-5 flex items-center justify-center flex-col">
+                        <div className="w-full max-w-md  h-64 grid grid-rows-6 rounded-2xl shadow-md">
+                          <div className="row-span-4 bg-violet-200 rounded-t-xl p-5 flex items-center justify-center flex-col">
                             {" "}
                             <HiClock className="w-auto h-3/4 fill-violet-900" />
                           </div>
