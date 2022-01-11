@@ -278,15 +278,23 @@ export default function SignUp() {
 
             <br />
             <button
+              disabled={
+                email.validEmail &&
+                email.value.length > 0 &&
+                password.validPassword &&
+                password.value.length > 0 &&
+                userInfo.firstName.length > 0 &&
+                userInfo.lastName.length > 0
+              }
               className={classNames(
                 email.validEmail &&
                   email.value.length > 0 &&
                   password.validPassword &&
-                  password.value &&
+                  password.value.length > 0 &&
                   userInfo.firstName.length > 0 &&
                   userInfo.lastName.length > 0
-                  ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-                  : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+                  ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:bg-violet-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg font-bold"
+                  : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
               )}
               onClick={() => doSignUp()}
             >
@@ -451,8 +459,8 @@ export default function SignUp() {
                 password.value &&
                 userInfo.firstName.length > 0 &&
                 userInfo.lastName.length > 0
-                ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:from-violet-800 via-purple-800 to-pink-800 text-lg font-bold"
-                : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+                ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg bg-gradient-to-r hover:bg-violet-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-lg font-bold"
+                : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
             )}
             onClick={() => doSignUp()}
           >

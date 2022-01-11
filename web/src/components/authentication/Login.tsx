@@ -4,10 +4,6 @@ import * as EmailValidator from "email-validator";
 import { inputError } from "../../interfaces/Auth";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-interface User {
-  idToken: string;
-  localId: string;
-}
 export default function Login() {
   function classNames(...classes: Array<string>) {
     return classes.filter(Boolean).join(" ");
@@ -162,13 +158,14 @@ export default function Login() {
       <br />
 
       <button
+        disabled={login.validEmail && login.validPassword}
         className={classNames(
           login.validEmail &&
             login.email.length > 0 &&
             login.validPassword &&
-            login.password
-            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  hover:bg-violet-500 text-lg font-bold"
-            : "p-2 w-1/2 text-white bg-gray-400 rounded-lg text-lg font-bold"
+            login.password.length > 0
+            ? "p-2 w-1/2 text-white bg-violet-800 rounded-lg  hover:bg-violet-500 text-lg font-bold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
         )}
         onClick={() => doLogin()}
       >
