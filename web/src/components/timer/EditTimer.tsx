@@ -48,7 +48,6 @@ export default function EditTimer() {
   const [isLoaded, setIsLoaded] = useState(false);
   const nav = useNavigate();
 
-  console.log(timer);
   var count = -1;
 
   function getThemeColor900() {
@@ -220,7 +219,6 @@ export default function EditTimer() {
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data: any) => {
-        console.log(data);
         if (data.success !== undefined && data.success != null) {
           nav("/dashboard");
         }

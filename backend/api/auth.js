@@ -52,7 +52,6 @@ router.post(
       db.db("project")
         .collection("users")
         .findOne({ uid: results.localId }, function (err, result) {
-          console.log(result);
           if (err) {
             res.status(400).send(JSON.stringify({ error: err }));
           } else {

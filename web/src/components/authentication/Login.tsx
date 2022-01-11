@@ -90,7 +90,6 @@ export default function Login() {
     fetch("https://api.goal-climber.com/auth/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(result);
         setLoading(false);
         const resultObj = JSON.parse(result);
 
@@ -187,7 +186,6 @@ export default function Login() {
             : "p-2 w-1/2 text-white bg-violet-800 brightness-50 rounded-lg text-lg font-bold"
         )}
         onClick={() => {
-          console.log("clicked");
           doLogin();
         }}
       >
