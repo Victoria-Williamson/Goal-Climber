@@ -24,6 +24,7 @@
     "react-dom": "^17.0.2",
     "react-h5-audio-player": "^3.8.1",
     "react-icons": "^4.3.1",
+    "react-loader-spinner": "^5.0.6",
     "react-password-strength-bar": "^0.4.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
