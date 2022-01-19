@@ -1,5 +1,8 @@
 .lowbackground {
   background: rgba(255, 255, 255, 0.5);
+  font-size: min(calc(8vw), 50px);
+  overflow: hidden;
+  text-align: center;
 }
 
 .largeTxt {
