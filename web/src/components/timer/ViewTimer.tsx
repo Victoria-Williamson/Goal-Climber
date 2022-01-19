@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, Fragment } from "react";
 import { Timer, subTimer } from "../../interfaces/Timer";
-import Countdown from "react-countdown";
 import useCountDown from "react-countdown-hook";
 import FastForward from "./Fast Forward.svg";
 import { VscDebugRestart } from "react-icons/vsc";
@@ -9,9 +8,10 @@ import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
 import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import useSound from "use-sound";
 import logo from "../../logos/Logo-white.svg";
-
+import { useCountdown as countdown } from "react-countdown-circle-timer";
 import { useParams } from "react-router-dom";
 import { FaPlay, FaPause, FaForward } from "react-icons/fa";
 import { RestartAlt } from "@mui/icons-material";
@@ -286,7 +286,17 @@ export default function ViewTimer(timer: Timer) {
         </div>
       );
   }
-
+  const UrgeWithPleasureComponent = () => (
+    <CountdownCircleTimer
+      isPlaying
+      duration={10}
+      colors="#A30000"
+      onComplete={() => {
+        // do your stuff here
+        return { shouldRepeat: true, delay: 1.5 }; // repeat animation in 1.5 seconds
+      }}
+    />
+  );
   /* If the clock has not started this shows how long the alarm is */
   function ToggleClock() {
     if (hasStarted) {
@@ -309,7 +319,7 @@ export default function ViewTimer(timer: Timer) {
       );
     }
     return (
-      <div className="mt-8 w-4/6 lg:w-full px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
+      <div className="mt-8 w-full px-12 py-8 h-auto mx-12 text-center lowbackground rounded-md font-black sm:text-center text-xl sm:text-5xl text-white flex items-center justify-center max-w-sm">
         {Math.floor(timer.timers[timerIndex].length) !== 0
           ? Math.floor(timer.timers[timerIndex].length)
           : "00"}{" "}
@@ -336,7 +346,7 @@ export default function ViewTimer(timer: Timer) {
                   getThemeColorText(),
                   "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                 )
-              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden"
           )}
         >
           {" "}
@@ -349,7 +359,7 @@ export default function ViewTimer(timer: Timer) {
                   getThemeColorText(),
                   "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                 )
-              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden"
           )}
         >
           {" "}
@@ -362,7 +372,7 @@ export default function ViewTimer(timer: Timer) {
                   getThemeColorText(),
                   "font-black px-4  py-2  text-center w-28 text-md mt-4 rounded-full bg-white"
                 )
-              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden sm:block"
+              : "text-white font-black px-4  py-2  text-center text-md mt-4 rounded-full border-4 w-28 border-white hidden "
           )}
         >
           {" "}
@@ -451,7 +461,7 @@ export default function ViewTimer(timer: Timer) {
       <div
         className={classNames(
           getThemeColorBackround(),
-          "w-11/12 h-full xl:p-6 m-4 rounded-md flex justify-center items-center flex-col gap-2 "
+          "w-full h-auto max-w-sm  p-4 m-4 rounded-md flex justify-center items-center flex-col gap-2 "
         )}
       >
         <Transition.Root show={open} as={Fragment}>
@@ -540,7 +550,7 @@ export default function ViewTimer(timer: Timer) {
 
         <ToggleClock />
 
-        <div className="w-full items-center justify-center flex gap-4 mt-7">
+        <div className="w-full items-center justify-center flex gap-4 mt-7 mb-5">
           <button
             className={classNames(
               getThemeColorText(),
@@ -573,6 +583,15 @@ export default function ViewTimer(timer: Timer) {
           />
         </div> */}
       </div>
+      {/* <CountdownCircleTimer
+        isPlaying
+        duration={10}
+        colors="#A30000"
+        onComplete={() => {
+          // do your stuff here
+          return { shouldRepeat: true, delay: 1.5 }; // repeat animation in 1.5 seconds
+        }}
+      /> */}
     </div>
   );
 }

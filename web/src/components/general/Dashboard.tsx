@@ -126,13 +126,13 @@ export default function Dashboard() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8  w-screen max-w-xl">
+              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8  w-screen max-w-md">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full">
                   <div className="flex items-start w-full px-8 ">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <Dialog.Title
                         as="h3"
-                        className="text-3xl text-center m-4 leading-6 text-violet-900   font-bold"
+                        className="text-2xl text-center m-4 font-semibold text-violet-900"
                       >
                         Create New Widget
                       </Dialog.Title>
@@ -176,8 +176,8 @@ export default function Dashboard() {
                 <div className="bg-gray-50 py-4 flex items-center justify-center gap-5 px-12">
                   <button
                     type="button"
-                    className="border-gray-400 font-bold text-xl text-white bg-violet-800 hover:bg-violet-900 rounded-lg 
-                    appearance-none  h-12  w-full py-2 px-4  leading-tight"
+                    className="border-gray-400 font-semibold text-lg text-white bg-violet-800 hover:brightness-75 rounded-lg 
+                    appearance-none  h-auto  w-full py-3 px-4  leading-tight"
                     onClick={() => {
                       createWidget();
                       setOpen(false);
@@ -187,8 +187,8 @@ export default function Dashboard() {
                   </button>
                   <button
                     type="button"
-                    className="border-gray-400 font-bold text-xl text-white bg-red-700 hover:bg-red-800   rounded-lg 
-                    appearance-none  h-12  w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
+                    className=" font-semibold text-lg text-white bg-violet-500 hover:brightness-75 rounded-lg 
+                    appearance-none  h-12  w-full py-3 px-4  leading-tight focus:outline-none   focus:border-2"
                     onClick={() => {
                       setOpen(false);
                     }}
@@ -205,14 +205,10 @@ export default function Dashboard() {
       <div className="h-screen w-screen">
         <div className="flex items-center justify-center flex-col h-full w-full">
           <div className="w-full h-full items-center justify-center text-center ">
-            <div className="w-screen   h-auto mt-5  px-0 flex flex-col md:flex-row items-center md:justify-start justify-center">
-              <div className="py-4 px-8 lg:px-24 text-violet-30 font-bold text-3xl md:text-4xl text-gray-600">
-                {" "}
-                Dashboard
-              </div>
-              <div className="w-screen  h-full px-1 flex flex-col items-end justify-center gap-5">
-                <div className="flex-row flex items-center justify-center gap-2 md:max-w-md w-screen md:w-1/2">
-                  <div className="text-lg font-semibold text-gray-500">
+            <div className="w-screen   h-auto mt-5  px-0  grid grid-auto-rows  items-center justify-center md:px-14">
+              <div className="w-full  h-full px-1 grid grid-rows-2 md:grid-cols-2 md:grid-rows-none mt-5 items-center  justify-center gap-4">
+                <div className="flex items-center justify-start gap-3 md:max-w-md w-full">
+                  <div className="text-lg font-semibold text-gray-500 w-24">
                     Filter by:
                   </div>
 
@@ -224,8 +220,8 @@ export default function Dashboard() {
                     <option value="timer"> All </option>
                   </select>
                 </div>
-                <div className="flex-row flex items-center justify-center gap-2 md:max-w-md w-full md:w-1/2">
-                  <div className="text-lg font-semibold text-gray-500">
+                <div className="flex items-center justify-start gap-3  md:max-w-md w-full">
+                  <div className="text-lg font-semibold text-gray-500 w-24">
                     Sort by:
                   </div>
 
@@ -240,7 +236,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="grid auto-rows-auto grid-cols-1 md:grid-cols-2 xl:grid-cols-4 rounded-lg  h-auto w-full justify-center items-center p-4 gap-8 mt-8 lg:px-28">
+            <div className="flex items-center justify-center  rounded-lg flex-wrap  h-auto w-screen  p-4 gap-8 mt-8 lg:px-28">
               {widgets?.map((widget) => {
                 if (widget.type === "timer") {
                   return (
@@ -252,15 +248,15 @@ export default function Dashboard() {
                           nav(link);
                         }}
                       >
-                        <div className="w-full max-w-md  h-64 grid grid-rows-6 rounded-2xl shadow-md">
-                          <div className="row-span-4 bg-violet-200 rounded-t-xl p-5 flex items-center justify-center flex-col">
+                        <div className="hover:transform hover:scale-90 transition duration-500 ease-in-out w-screen max-w-sm mx-8 lg:mx-2  hover:brightness-90  h-64 grid grid-rows-6 rounded-lg shadow-md">
+                          <div className=" row-span-4 bg-violet-200 rounded-t-lg p-5 flex items-center justify-center flex-col">
                             {" "}
                             <HiClock className="w-auto h-3/4 fill-violet-900" />
                           </div>
-                          <div className="row-span-2  bg-white-100 p-4 rounded-b-xl items-start justify-start text-left">
+                          <div className="row-span-2  bg-white-100  rounded-b-lg items-start justify-start text-left p-6">
                             {" "}
                             <h1 className="font-bold"> {widget.name} </h1>
-                            <h3> Last Modified: XX days ago </h3>
+                            <h3> Last Modified: 2 days ago </h3>
                           </div>
                         </div>
                       </button>

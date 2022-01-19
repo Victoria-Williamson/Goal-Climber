@@ -26,7 +26,7 @@ module.exports = {
           500: "#1E40AF",
         },
         blueGray: {
-          100: "#F1F5F9",
+          100: "#eff3f7",
         },
         notionDark: {
           100: "#2F3438",

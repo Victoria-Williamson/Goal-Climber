@@ -429,7 +429,7 @@ export default function EditTimer() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <Dialog.Overlay className="fixed inset-0 bg-gray-600  bg-opacity-75 transition-opacity" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -448,35 +448,27 @@ export default function EditTimer() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg--100 sm:mx-0 sm:h-10 sm:w-10 bg-violet-100">
-                      <AiFillEdit
-                        className="h-6 w-6 text--600 text-violet-600"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8  w-screen max-w-md">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full">
+                  <div className="flex items-start w-full px-8">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <Dialog.Title
                         as="h3"
-                        className="text-xl leading-6 font-medium text-gray-900"
+                        className="text-2xl text-center font-semibold text-violet-900"
                       >
                         Edit Sub Timer
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-lg text-gray-500">
-                          Edit a previously existing Sub Timer
-                        </p>
                         <div className="w-full flex flex-col items-center mt-3 justify-center gap-2">
-                          <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                          <div className="flex flex-col  items-start justify-center gap-3 text-gray-700 w-full">
                             <label> Type </label>
                             <select
                               value={type}
                               onChange={(e) => {
                                 setEditType(e.target.value);
                               }}
-                              className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
+                              className="border-gray-400 focus:border-violet-700 bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                             >
                               <option value="work"> Work </option>
                               <option value="long"> Long Break </option>
@@ -493,7 +485,8 @@ export default function EditTimer() {
                               onChange={(e) => {
                                 setEditLength(parseInt(e.target.value));
                               }}
-                              className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
+                              className="border-gray-400 focus:border-violet-700 bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                             />
                           </div>
                         </div>
@@ -502,31 +495,25 @@ export default function EditTimer() {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3  gap-2 flex items-center w-full  justify-center flex-col  pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <button
-                    type="button"
-                    className="w-full h-12 inline-flex  items-center justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-600 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3  sm:text-sm"
-                    onClick={() => editSubTimer()}
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full h-12 inline-flex items-center justify-center rounded-md shadow-sm px-4 py-2 bg-white border-2 border-violet-600 text-base font-medium text-violet-600 hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3  sm:text-sm"
-                    onClick={() => {
-                      deletesubTimer(editTimer);
-                      setOpenEdit(false);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full h-12 items-center inline-flex justify-center rounded-md border-2 border-gray-300 text-gray-500 shadow-sm px-4 py-2  text-base font-medium hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3  sm:text-sm"
-                    onClick={() => setOpenEdit(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
+                  <div className="grid grid-cols-2 w-full gap-2 items-center justify-center">
+                    <button
+                      type="button"
+                      className="w-full h-12 inline-flex  items-center justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-800 text-base font-medium text-white hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 "
+                      onClick={() => editSubTimer()}
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className="w-full h-12 inline-flex items-center justify-center rounded-md shadow-sm px-4 py-2 bg-white border-2 border-violet-800 text-base font-medium text-violet-800 hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3"
+                      onClick={() => {
+                        deletesubTimer(editTimer);
+                        setOpenEdit(false);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </Transition.Child>
@@ -650,8 +637,8 @@ export default function EditTimer() {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="flex flex-col lg:flex-row w-full h-full  gap-4 items-center justify-center overflow-hidden ">
-        <div className="max-h-screen overflow-y-auto w-full h-full lg:min-h-screen bg-blueGray-100 pb-4 lg:w-1/3">
+      <div className="flex flex-col lg:flex-row w-full h-full lg:h-screen  gap-4 items-center justify-center overflow-hidden  ">
+        <div className="max-h-screen overflow-y-auto w-full h-fl lg:min-h-screen bg-blueGray-100 pb-4 lg:w-1/3">
           <div className=" w-full  h-full lg:mb-24   bg-blueGray-100 py-4  lg:overflow-y-scroll  flex items-center justify-center flex-col gap-2 ">
             <div className=" w-full">
               <button
@@ -662,8 +649,27 @@ export default function EditTimer() {
                 <IoIosArrowBack className="h-8 w-7" /> Go Back{" "}
               </button>
             </div>
+
             <div className="w-full flex items-center justify-center lg:w-5/6 px-8 lg:px-4  ">
               <div className="max-w-lg w-screen  ">
+                <div className="grid grid-cols-2 w-full gap-2">
+                  <button
+                    className={classNames(
+                      "bg-violet-900 text-center text-white hover:brightness-75 text-base flex items-center justify-center w-full h-14  rounded-md font-semibold"
+                    )}
+                    onClick={() => saveSubTimer()}
+                  >
+                    Save Changes
+                  </button>
+                  <button
+                    className={classNames(
+                      " bg-violet-400 text-center text-white hover:brightness-75 text-base flex items-center justify-center w-full h-14  rounded-md font-semibold"
+                    )}
+                    onClick={() => deleteTimer()}
+                  >
+                    Delete Widget
+                  </button>
+                </div>
                 <div className="flex flex-col lg:mt-8  items-start justify-center gap-2  mb-4 text-gray-700 w-full">
                   <label> Title </label>
                   <input
@@ -830,30 +836,11 @@ export default function EditTimer() {
           </div>
         </div>
 
-        <div className="lg:w-2/3 w-full t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10 ">
-          <div className="text-2xl font-bold text-gray-700">Widget Preview</div>
-          <div className="demoHeight   p-8 border-2 border-dashed rounded-lg outline-offset-8">
+        <div className="lg:w-2/3 w-full mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10 ">
+          <div className="h-auto max-w-md p-8 mx-8 border-2 border-dashed rounded-lg outline-offset-8">
             <ViewTimer {...timer} />
           </div>
-          <div className="w-full flex items-center lg:flex-row flex-col justify-center no-wrap px-8 gap-3">
-            <button
-              className={classNames(
-                " bg-green-700 text-center text-white hover:brightness-75 brightness-100 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none text-lg max-w-xs lg:w-48 flex items-center justify-center w-full h-12  rounded-md font-bold"
-              )}
-              onClick={() => saveSubTimer()}
-            >
-              Save Changes
-            </button>
-            <button
-              className={classNames(
-                "bg-red-700",
-                "text-center text-white hover:brightness-75 brightness-100 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none text-lg max-w-xs lg:w-48 flex items-center justify-center w-full h-12  rounded-md font-bold"
-              )}
-              onClick={() => deleteTimer()}
-            >
-              Delete Widget
-            </button>
-          </div>
+
           <label className="font-bold text-lg mt-2"> Embedd Link </label>
           <div className="max-w-lg w-full grid grid-cols-6 gap-0 no-wrap text-clip h-12 bg-gray-white rounded-md mb-12">
             <div className="flex bg-white border-2 items-center px-4 justify-start max-w-fit no-wrap break-normal col-span-5  text-md  overflow-x-auto space-x-8">
@@ -861,7 +848,7 @@ export default function EditTimer() {
             </div>
             <button
               className={classNames(
-                getThemeColor400(),
+                getThemeColor900(),
                 "w-full flex items-center col-span-1 justify-center"
               )}
               onClick={() => {
