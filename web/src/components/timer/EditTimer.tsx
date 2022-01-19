@@ -556,28 +556,19 @@ export default function EditTimer() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="inline-block align-bottom bg-white rounded-lg text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg--100 sm:mx-0 sm:h-10 sm:w-10 bg-violet-100">
-                      <FaPlus
-                        className="h-6 w-6 text--600 text-violet-600"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8  w-screen max-w-md">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full">
+                  <div className="flex items-start w-full px-8 ">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <Dialog.Title
                         as="h3"
-                        className="text-xl leading-6 font-medium text-gray-900"
+                        className="text-2xl text-center m-4 font-semibold text-violet-900"
                       >
-                        Create new sub timer
+                        Add Sub Timer
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-lg text-gray-500">
-                          Want to add onto this routine? Add a new subtimer
-                        </p>
                         <div className="w-full flex flex-col items-center mt-3 justify-center gap-2">
-                          <div className="flex flex-col  items-start justify-center gap-2 text-gray-700 w-full">
+                          <div className="flex flex-col  items-start justify-center gap-3 text-gray-700 w-full">
                             <label> Type </label>
                             <select
                               value={newSub.type}
@@ -587,7 +578,8 @@ export default function EditTimer() {
                                   type: e.target.value,
                                 })
                               }
-                              className="bg-white appearance-none  col-span-5 h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight border-gray-400 focus:outline-none border-2 focus:border-violet-800 focus:border--700 focus:border-2"
+                              className="border-gray-400 focus:border-violet-700 bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                             >
                               <option value="work"> Work </option>
                               <option value="long"> Long Break </option>
@@ -607,7 +599,8 @@ export default function EditTimer() {
                                   length: parseInt(e.target.value),
                                 });
                               }}
-                              className="bg-white appearance-none  h-12 rounded w-full py-2 px-4 text-gray-500 leading-tight focus:outline-none border-gray-400 border-2 hover:border-violet-500 focus:border--700 focus:border-2"
+                              className="border-gray-400 focus:border-violet-700 bg-blueGray-100 text-gray-500 
+                    appearance-none  h-12 rounded w-full py-2 px-4  leading-tight focus:outline-none   focus:border-2"
                             />
                           </div>
                         </div>
@@ -616,21 +609,25 @@ export default function EditTimer() {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                  <button
-                    type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-violet-600 text-base font-medium text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring--500 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => addSubTimer()}
-                  >
-                    Add
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setOpenNew(false)}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
+                  <div className="grid grid-cols-2 items-center justify-center w-full gap-2">
+                    <button
+                      type="button"
+                      className="border-gray-400 font-semibold text-lg text-white bg-violet-800 hover:brightness-75 rounded-lg 
+                    appearance-none  h-auto  w-full py-3 px-4  leading-tight"
+                      onClick={() => addSubTimer()}
+                    >
+                      Add
+                    </button>
+                    <button
+                      type="button"
+                      className="font-semibold text-lg text-white bg-violet-500 hover:brightness-75 rounded-lg 
+                    appearance-none  h-12  w-full py-3 px-4  leading-tight focus:outline-none   focus:border-2"
+                      onClick={() => setOpenNew(false)}
+                      ref={cancelButtonRef}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
             </Transition.Child>
