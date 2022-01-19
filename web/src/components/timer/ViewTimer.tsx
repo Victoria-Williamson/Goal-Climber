@@ -8,10 +8,8 @@ import { XIcon } from "@heroicons/react/outline";
 import Play from "./Play.svg";
 import { HiDotsHorizontal } from "react-icons/hi";
 import "./styles.css";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import useSound from "use-sound";
 import logo from "../../logos/Logo-white.svg";
-import { useCountdown as countdown } from "react-countdown-circle-timer";
 import { useParams } from "react-router-dom";
 import { FaPlay, FaPause, FaForward } from "react-icons/fa";
 import { RestartAlt } from "@mui/icons-material";
@@ -286,17 +284,7 @@ export default function ViewTimer(timer: Timer) {
         </div>
       );
   }
-  const UrgeWithPleasureComponent = () => (
-    <CountdownCircleTimer
-      isPlaying
-      duration={10}
-      colors="#A30000"
-      onComplete={() => {
-        // do your stuff here
-        return { shouldRepeat: true, delay: 1.5 }; // repeat animation in 1.5 seconds
-      }}
-    />
-  );
+
   /* If the clock has not started this shows how long the alarm is */
   function ToggleClock() {
     if (hasStarted) {
