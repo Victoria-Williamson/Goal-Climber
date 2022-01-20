@@ -648,7 +648,7 @@ export default function EditTimer() {
 
             <div className="w-full flex items-center justify-center lg:w-5/6 px-8 lg:px-4  ">
               <div className="max-w-lg w-screen  ">
-                <div className="grid grid-cols-2 w-full gap-2">
+                <div className="grid grid-cols-2 w-full gap-2 my-3">
                   <button
                     className={classNames(
                       "bg-violet-900 text-center text-white hover:brightness-75 text-base flex items-center justify-center w-full h-14  rounded-md font-semibold"
@@ -832,7 +832,7 @@ export default function EditTimer() {
           </div>
         </div>
 
-        <div className="lg:w-2/3 w-full mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10 ">
+        <div className="w-2/3 mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10">
           <div
             className={classNames(
               timer.isDarkMode
