@@ -123,7 +123,7 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 h-auto w-full max-w-md smd:border-2 border-gray-100 gap-1">
+    <div className="bg-white rounded-xl flex flex-col  items-center  justify-center p-8 mx-4 h-auto w-full max-w-md smd:border-2 border-gray-100 gap-1">
       <button onClick={() => navigate("/")}>
         <img src={logo} className="h-48 w-auto" alt="logo" />
       </button>

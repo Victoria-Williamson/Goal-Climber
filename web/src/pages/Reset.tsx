@@ -5,8 +5,8 @@ import "./styles.css";
 export default function ResetPage() {
   return (
     <div>
-      <div className="flex flex-col h-screen gradientBackground  w-screen justify-center items-center">
-        <div className="absolute w-screen h-screen z-10 flex items-center justify-center">
+      <div className="flex flex-col h-screen bg-white md:gradientBackground  w-screen justify-center items-center">
+        <div className="absolute w-screen h-full min-h-screen z-10 flex items-center justify-center">
           <SignUp />
         </div>
       </div>

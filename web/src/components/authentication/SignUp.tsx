@@ -159,7 +159,7 @@ export default function SignUp() {
     }
   }
   return (
-    <div className="w-screen  h-full flex items-center justify-center mx-12">
+    <div className="w-screen min-h-screen h-full flex items-center justify-center mx-12">
       <div className="mx-10 hidden h-full smd:grid md:grid-cols-2 md:justify-center md:items-center bg-white rounded-xl">
         <div>
           <div className="  flex flex-col  items-center  justify-center p-8 h-auto  gap-2 my-5">
