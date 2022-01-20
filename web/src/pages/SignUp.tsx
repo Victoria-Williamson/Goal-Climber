@@ -20,7 +20,7 @@ export default function SignUpPage() {
     <div>
       <div className="absolute h-full min-h-screen w-screen z-10">
         <div className="flex flex-col  overflow-y-auto  w-screen justify-center items-center">
-          <div className="w-screen py-5 h-full min-h-screen flex items-center bg-white md:backgroundGradient justify-center gradientBackground z-10  lg:bg-transparent">
+          <div className="w-screen py-5 h-full min-h-screen flex items-center bg-white md:backgroundGradient justify-center md:gradientBackground z-10  lg:bg-transparent">
             <SignUp />
           </div>
         </div>
