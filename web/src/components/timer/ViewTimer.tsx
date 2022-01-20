@@ -211,7 +211,7 @@ export default function ViewTimer(timer: Timer) {
             <div
               className={classNames(
                 getThemeColor900(),
-                " l col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold "
+                " col-span-2  flex-col rounded-tl-md rounded-bl-md w-auto flex items-center justify-center text-white font-bold "
               )}
             >
               {timer.timers[timerIndex + index].length}
@@ -542,7 +542,7 @@ export default function ViewTimer(timer: Timer) {
           <button
             className={classNames(
               getThemeColorText(),
-              " rounded-full bg-white h-10 w-10mb-1 p-1 flex items-center justify-center font-black"
+              "rounded-full bg-white h-10 w-10 mb-1 p-1 flex items-center justify-center font-black text-emerald"
             )}
             onClick={() => {
               reset();

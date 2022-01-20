@@ -195,7 +195,7 @@ export default function EditTimer() {
 
     return "fill-emerald-500";
   }
-
+  window.scrollTo(0, 0);
   const viewLink = "https://goal-climber.com/timer/view/" + params.timerId;
   useEffect(() => {
     fetch("https://api.goal-climber.com/timer/" + params.timerId)
@@ -612,8 +612,7 @@ export default function EditTimer() {
                   <div className="grid grid-cols-2 items-center justify-center w-full gap-2">
                     <button
                       type="button"
-                      className="border-gray-400 font-semibold text-lg text-white bg-violet-800 hover:brightness-75 rounded-lg 
-                    appearance-none  h-auto  w-full py-3 px-4  leading-tight"
+                      className=""
                       onClick={() => addSubTimer()}
                     >
                       Add
@@ -706,7 +705,7 @@ export default function EditTimer() {
                     </select>
                     <div
                       className={classNames(
-                        "col-span-1 h-full w-full",
+                        "col-span-1 h-12 w-full",
                         getThemeColorBackround()
                       )}
                     />
@@ -834,7 +833,14 @@ export default function EditTimer() {
         </div>
 
         <div className="lg:w-2/3 w-full mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10 ">
-          <div className="h-auto max-w-md p-8 mx-8 border-2 border-dashed rounded-lg outline-offset-8">
+          <div
+            className={classNames(
+              timer.isDarkMode
+                ? " bg-notionDark-100"
+                : "bg-white border-2 border-dashed",
+              "h-auto max-w-md p-8 mx-8  rounded-lg outline-offset-8"
+            )}
+          >
             <ViewTimer {...timer} />
           </div>
 
