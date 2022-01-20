@@ -832,7 +832,7 @@ export default function EditTimer() {
           </div>
         </div>
 
-        <div className="lg:w-2/3 w-full mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10 ">
+        <div className="w-2/3 mx-8 t-0 min-h-full h-full  flex items-center justify-center px-5 col-span-5 flex-col gap-4 my-10">
           <div
             className={classNames(
               timer.isDarkMode
